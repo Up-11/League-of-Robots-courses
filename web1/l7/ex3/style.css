@@ -1,0 +1,17 @@
+.card {
+	width: 250px;
+	height: 150px;
+	background-color: lightgray;
+	margin: 10px;
+	text-align: center;
+	border-radius: 10px;
+}
+
+.title {
+	font-size: 20px;
+	color: red;
+}
+
+#minecraft .title {
+	color: green;
+}

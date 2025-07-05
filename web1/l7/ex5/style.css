@@ -1,0 +1,21 @@
+.card {
+	background-color: white;
+	width: 300px;
+	height: 200px;
+	text-align: center;
+	border-radius: 25px;
+}
+
+.title {
+	color: green !important;
+	font-size: 26px;
+}
+
+#main-card .title {
+	color: blue;
+}
+
+.info {
+	font-size: 18px;
+	background-color: lightyellow;
+}

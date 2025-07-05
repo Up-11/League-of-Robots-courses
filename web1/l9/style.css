@@ -1,0 +1,44 @@
+html {
+	font-family: 'Pacifico', cursive;
+}
+
+div > h1 {
+	font-size: 24px;
+	color: blue;
+}
+div + p {
+	color: brown;
+	font-size: 24px;
+}
+
+p::first-letter {
+	color: green;
+}
+
+p::first-line {
+	color: red;
+}
+p::before {
+	content: '🤨';
+}
+p::after {
+	content: '🫡';
+}
+p::highlight {
+	color: yellow;
+}
+/* span {
+	display: none;
+}
+ */
+
+div {
+	display: inline;
+}
+.product {
+	background-color: #f2dcdc;
+	padding: 20px;
+	border-radius: 12px;
+	text-align: center;
+	display: inline-block;
+}

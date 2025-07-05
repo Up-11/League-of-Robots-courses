@@ -1,0 +1,14 @@
+h1 {
+	color: darkblue;
+	text-align: center;
+}
+
+.schedule {
+	background-color: #f2f2f2;
+	width: 250px;
+}
+
+.schedule li {
+	color: darkgreen;
+	font-size: 18px;
+}

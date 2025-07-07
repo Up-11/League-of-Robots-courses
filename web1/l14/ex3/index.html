@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(to right, #2c3e50, #3498db);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero {
+      text-align: center;
+      color: white;
+    }
+
+    @keyframes titleEnter {
+      0% {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      animation: titleEnter 1s ease-out forwards;
+    }
+
+    .hero button {
+      margin-top: 20px;
+      padding: 12px 30px;
+      font-size: 1rem;
+      background-color: #fff;
+      color: #2c3e50;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.4s ease;
+    }
+
+    .hero button:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hero">
+    <h1>Ночь волшебства</h1>
+    <button>Начать путешествие</button>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    @keyframes fadeInOut {
+      0% {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+    }
+
+    .gallery-item {
+      width: 200px;
+      margin: 10px;
+      animation: fadeInOut 3s ease-in-out infinite alternate;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="gallery">
+    <img src="img1.jpg" class="gallery-item" style="animation-delay: 0s;">
+    <img src="img2.jpg" class="gallery-item" style="animation-delay: 1s;">
+    <img src="img3.jpg" class="gallery-item" style="animation-delay: 2s;">
+  </div>
+
+</body>
+
+</html>

@@ -84,17 +84,12 @@ input{
   border: none;
   outline: none;
   min-width: 200px;
-  
   padding: 2px 8px;
-
 }
 .search-icon{
   margin-left: 12px;
   color: white;
   padding: 4px;
-}
-.hero{
-
 }
 .banner{
   width: 100%;

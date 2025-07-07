@@ -119,7 +119,6 @@ aside{
   margin: 15px 20px;
   position: relative;
 }
-
 .sidebar-divider::after {
   content: '';
   position: absolute;
@@ -129,10 +128,6 @@ aside{
   height: 1px;
   background: #222);
 }
-
-
-
-
 .sidebar-item::after {
   content: '';
   position: absolute;
@@ -143,15 +138,11 @@ aside{
   background: #ff3333;
 
 }
-
-
-
 .logo-container {
   display: flex;
   align-items: center;
   height: 100%;
 }
-
 .logo {
   color: white;
   font-size: 28px;
@@ -162,17 +153,14 @@ aside{
   height: 100%;
   padding: 0 10px;
 }
-
 .logo span:first-child {
   color: #ff3333;
 }
-
 .search-container {
   position: relative;
   flex: 0 1 640px;
   margin: 0 24px;
 }
-
 .search-input {
   width: 100%;
   height: 40px;
@@ -183,19 +171,14 @@ aside{
   font-size: 16px;
   color: #fff;
   outline: none;
-
 }
-
 .search-input:focus {
   background: #333;
   border-color: #ff3333;
-
 }
-
 .search-input::placeholder {
   color: #888;
 }
-
 .search-icon {
   position: absolute;
   left: 16px;
@@ -204,13 +187,11 @@ aside{
   color: #888;
   font-size: 18px;
 }
-
 .header-right-side {
   display: flex;
   align-items: center;
   gap: 16px;
 }
-
 .icon {
   width: 40px;
   height: 40px;
@@ -219,19 +200,15 @@ aside{
   align-items: center;
   justify-content: center;
   cursor: pointer;
-
   position: relative;
 }
-
 .icon:hover {
   background: #333;
 }
-
 .icon i {
   font-size: 20px;
   color: #fff;
 }
-
 .notification-badge {
   position: absolute;
   top: 5px;
@@ -242,12 +219,10 @@ aside{
   border-radius: 50%;
   border: 2px solid #000;
 }
-
 .user-avatar {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -255,14 +230,12 @@ aside{
   color: white;
   cursor: pointer;
 }
-
 .content {
   padding: 20px;
   max-width: 1280px;
   margin: 0 auto;
   margin-left: 200px;
 }
-
 .section-title {
   font-size: 22px;
   margin: 24px 0 16px;
@@ -270,38 +243,28 @@ aside{
   display: flex;
   align-items: center;
 }
-
 .videos-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: flex-start;
 }
-
 .video-card {
   background: #222;
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
-  
-
   flex: 1 1 calc(25% - 20px); 
   min-width: 200px; 
   max-width: 320px; 
-  
-
   display: flex;
   flex-direction: column;
 }
-
-
 .thumbnail {
   position: relative;
   padding-top: 56.25%;
-  
   background: #ff3333;
 }
-
 .thumbnail img {
   position: absolute;
   top: 0;

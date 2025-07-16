@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Telegram-like Chat</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+		/>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="sidebar">
+			<div class="sidebar-header">
+				<h2>Telegram</h2>
+				<i class="fas fa-edit"></i>
+			</div>
+
+			<div class="search-container">
+				<div class="search-box">
+					<i class="fas fa-search"></i>
+					<input type="text" placeholder="Поиск" />
+				</div>
+			</div>
+
+			<div class="contacts">
+				<div class="contact active">
+					<div class="contact-avatar">А</div>
+					<div class="contact-info">
+						<div class="contact-name">Алексей Петров</div>
+						<div class="contact-last-message">Привет! Как дела?</div>
+					</div>
+					<div class="contact-meta">
+						<div class="contact-time">10:15</div>
+						<div class="unread-count">3</div>
+					</div>
+				</div>
+
+				<div class="contact">
+					<div class="contact-avatar">М</div>
+					<div class="contact-info">
+						<div class="contact-name">Мария Иванова</div>
+						<div class="contact-last-message">Завтра встречаемся?</div>
+					</div>
+					<div class="contact-meta">
+						<div class="contact-time">09:30</div>
+					</div>
+				</div>
+
+				<div class="contact">
+					<div class="contact-avatar">И</div>
+					<div class="contact-info">
+						<div class="contact-name">Иван Сидоров</div>
+						<div class="contact-last-message">Отправил тебе файл</div>
+					</div>
+					<div class="contact-meta">
+						<div class="contact-time">Вчера</div>
+					</div>
+				</div>
+
+				<div class="contact">
+					<div class="contact-avatar">Е</div>
+					<div class="contact-info">
+						<div class="contact-name">Елена Васильева</div>
+						<div class="contact-last-message">Спасибо за помощь!</div>
+					</div>
+					<div class="contact-meta">
+						<div class="contact-time">Пн</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="chat-container">
+			<div class="chat-header">
+				<div class="chat-header-avatar">А</div>
+				<div class="chat-header-info">
+					<div class="chat-header-name">Алексей Петров</div>
+					<div class="chat-header-status">был(а) в сети 5 минут назад</div>
+				</div>
+				<div class="chat-header-actions">
+					<i class="fas fa-search"></i>
+					<i class="fas fa-paperclip"></i>
+					<i class="fas fa-ellipsis-v"></i>
+				</div>
+			</div>
+
+			<div class="chat-messages">
+				<div class="message message-incoming">
+					Привет! Как твои дела?
+					<div class="message-time">10:15</div>
+				</div>
+
+				<div class="message message-outgoing">
+					Привет! Всё отлично, только что закончил проект. А у тебя как?
+					<div class="message-time">
+						10:16 <span class="message-status">✓✓</span>
+					</div>
+				</div>
+
+				<div class="message message-incoming">
+					Тоже всё хорошо. Слушай, не мог бы ты помочь мне с настройкой сервера?
+					Я немного запутался.
+					<div class="message-time">10:17</div>
+				</div>
+
+				<div class="message message-outgoing">
+					Конечно! Когда тебе удобно? Могу сегодня после 18:00.
+					<div class="message-time">
+						10:18 <span class="message-status">✓✓</span>
+					</div>
+				</div>
+
+				<div class="message message-incoming">
+					Идеально! Тогда сегодня в 18:30? Я приеду к тебе в офис.
+					<div class="message-time">10:18</div>
+				</div>
+
+				<div class="message message-outgoing">
+					Отлично, договорились. Буду ждать. Не забудь взять с собой ноутбук.
+					<div class="message-time">
+						10:19 <span class="message-status">✓</span>
+					</div>
+				</div>
+
+				<div class="message message-incoming">
+					Обязательно возьму. Спасибо большое за помощь! 😊
+					<div class="message-time">10:20</div>
+				</div>
+
+				<div class="message message-outgoing">
+					Не за что! Рад помочь. Увидимся позже! 👋
+					<div class="message-time">
+						10:20 <span class="message-status">✓✓</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="chat-input">
+				<i class="far fa-smile"></i>
+				<i class="fas fa-paperclip"></i>
+				<input
+					type="text"
+					class="message-input"
+					placeholder="Введите сообщение..."
+				/>
+				<i class="fas fa-microphone"></i>
+				<button class="send-button">
+					<i class="fas fa-paper-plane"></i>
+				</button>
+			</div>
+		</div>
+	</body>
+</html>

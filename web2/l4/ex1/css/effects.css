@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+@font-face {
+	font-family: 'SuperFont';
+	src: url('../fonts/SuperFont.woff2') format('woff2');
+}
+
+@layer fonts {
+	body {
+		font-family: 'Orbitron', sans-serif;
+	}
+
+	.header h1 {
+		font-family: 'SuperFont', 'Orbitron', sans-serif;
+		letter-spacing: 2px;
+	}
+}
+
+@layer animation {
+	@keyframes fadeIn {
+		0% {
+			opacity: 0;
+			transform: translateY(-20px);
+		}
+		100% {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@starting-style {
+		.info {
+			opacity: 0;
+			transform: translateY(-20px);
+		}
+	}
+
+	.info {
+		animation: fadeIn 1s ease-out forwards;
+	}
+}

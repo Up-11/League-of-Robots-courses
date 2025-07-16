@@ -1,0 +1,291 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+	display: flex;
+	height: 100vh;
+	background: linear-gradient(135deg, #1e3c72, #2a5298);
+	color: #333;
+}
+
+.sidebar {
+	width: 300px;
+	background-color: #f0f2f5;
+	border-right: 1px solid #e0e0e0;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+.sidebar-header {
+	padding: 15px;
+	background-color: #0088cc;
+	color: white;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.search-container {
+	padding: 10px 15px;
+	background-color: #eef2f5;
+}
+
+.search-box {
+	display: flex;
+	background-color: white;
+	border-radius: 20px;
+	padding: 8px 15px;
+	align-items: center;
+}
+
+.search-box i {
+	color: #888;
+	margin-right: 10px;
+}
+
+.search-box input {
+	border: none;
+	outline: none;
+	background: transparent;
+	width: 100%;
+	font-size: 14px;
+}
+
+.contacts {
+	flex: 1;
+	overflow-y: auto;
+}
+
+.contact {
+	display: flex;
+	padding: 12px 15px;
+	border-bottom: 1px solid #f0f2f5;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.contact:hover {
+	background-color: #e5e5e5;
+}
+
+.contact.active {
+	background-color: #d9dbde;
+}
+
+.contact-avatar {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background-color: #0088cc;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-weight: bold;
+	font-size: 18px;
+	margin-right: 15px;
+}
+
+.contact-info {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.contact-name {
+	font-weight: 600;
+	margin-bottom: 3px;
+}
+
+.contact-last-message {
+	font-size: 13px;
+	color: #666;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 200px;
+}
+
+.contact-meta {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	font-size: 12px;
+	color: #666;
+}
+
+.contact-time {
+	margin-bottom: 5px;
+}
+
+.unread-count {
+	background-color: #0088cc;
+	color: white;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 10px;
+}
+
+.chat-container {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	background-color: #e6ebf5;
+}
+
+.chat-header {
+	padding: 15px 20px;
+	background-color: #f0f2f5;
+	border-bottom: 1px solid #e0e0e0;
+	display: flex;
+	align-items: center;
+}
+
+.chat-header-avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background-color: #25d366;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-weight: bold;
+	font-size: 16px;
+	margin-right: 15px;
+}
+
+.chat-header-info {
+	flex: 1;
+}
+
+.chat-header-name {
+	font-weight: 600;
+}
+
+.chat-header-status {
+	font-size: 13px;
+	color: #666;
+}
+
+.chat-header-actions {
+	display: flex;
+}
+
+.chat-header-actions i {
+	margin-left: 20px;
+	font-size: 18px;
+	color: #666;
+	cursor: pointer;
+}
+
+.chat-messages {
+	flex: 1;
+	padding: 20px;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+}
+
+.message {
+	max-width: 70%;
+	padding: 10px 15px;
+	border-radius: 18px;
+	margin-bottom: 15px;
+	position: relative;
+	word-wrap: break-word;
+}
+
+.message-incoming {
+	align-self: flex-start;
+	background-color: white;
+	border-bottom-left-radius: 5px;
+}
+
+.message-outgoing {
+	align-self: flex-end;
+	background-color: #dcf8c6;
+	border-bottom-right-radius: 5px;
+}
+
+.message-time {
+	font-size: 11px;
+	color: #999;
+	text-align: right;
+	margin-top: 5px;
+}
+
+.message-outgoing .message-time {
+	color: #4caf50;
+}
+
+.message-status {
+	display: inline-block;
+	margin-left: 5px;
+}
+
+.chat-input {
+	padding: 15px;
+	background-color: #f0f2f5;
+	display: flex;
+	align-items: center;
+	border-top: 1px solid #e0e0e0;
+}
+
+.chat-input i {
+	font-size: 22px;
+	color: #666;
+	margin: 0 10px;
+	cursor: pointer;
+}
+
+.message-input {
+	flex: 1;
+	padding: 12px 20px;
+	border-radius: 25px;
+	border: none;
+	outline: none;
+	font-size: 16px;
+	background-color: white;
+}
+
+.send-button {
+	background-color: #0088cc;
+	color: white;
+	border: none;
+	border-radius: 50%;
+	width: 45px;
+	height: 45px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	margin-left: 10px;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.05);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+.send-button:hover {
+	animation: pulse 0.5s ease-in-out;
+	background-color: #0077b3;
+}

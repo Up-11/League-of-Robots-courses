@@ -1,0 +1,21 @@
+@layer animations;
+
+@layer animations {
+	@starting-style {
+		.title {
+			opacity: 0;
+			transform: translateY(-50px);
+		}
+	}
+
+	@keyframes fadeInTitle {
+		0% {
+			opacity: 0;
+			transform: translateY(-50px);
+		}
+		100% {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+}

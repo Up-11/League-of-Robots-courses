@@ -27,10 +27,9 @@ p::after {
 p::highlight {
 	color: yellow;
 }
-/* span {
-	display: none;
+span {
+	display: block;
 }
- */
 
 div {
 	display: inline;

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			const questions = [
+				{
+					question: 'Сколько будет 2 + 2?',
+					options: ['3', '4', '5', '10'],
+					answer: '4',
+					explanation: 'Потому что 2 + 2 = 4!',
+				},
+				{
+					question: 'Какого цвета трава?',
+					options: ['Красного', 'Зелёного', 'Синего', 'Фиолетового'],
+					answer: 'Зелёного',
+					explanation: 'Трава зелёная из-за хлорофилла!',
+				},
+				{
+					question: 'Какое животное самое большое?',
+					options: ['Слон', 'Синий кит', 'Жираф', 'Бегемот'],
+					answer: 'Синий кит',
+					explanation: 'Синий кит может достигать 33 метров в длину!',
+				},
+			]
+
+			function startQuiz() {
+				let score = 0
+
+				for (let q of questions) {
+					let questionText = q.question + '\n\n'
+					q.options.forEach((option, index) => {
+						questionText += `${index + 1}. ${option}\n`
+					})
+
+					const userAnswer = prompt(questionText)
+
+					if (
+						userAnswer === q.answer ||
+						(parseInt(userAnswer) > 0 &&
+							q.options[parseInt(userAnswer) - 1] === q.answer)
+					) {
+						score++
+						alert(`✅ Верно! +1 балл\n${q.explanation}`)
+					} else {
+						const selectedOption =
+							parseInt(userAnswer) > 0
+								? `Вы выбрали: ${q.options[parseInt(userAnswer) - 1]}\n`
+								: ''
+						alert(
+							`❌ Неверно!\n${selectedOption}Правильный ответ: ${q.answer}\n${q.explanation}`
+						)
+					}
+				}
+
+				let resultMessage = `Твой результат: ${score} из ${questions.length}!\n`
+
+				alert(resultMessage)
+
+				if (confirm('Хочешь сыграть ещё раз?')) {
+					startQuiz()
+				}
+			}
+
+			alert(
+				'Добро пожаловать в викторину! Ответь на все вопросы и проверь свои знания!'
+			)
+			startQuiz()
+		</script>
+	</body>
+</html>

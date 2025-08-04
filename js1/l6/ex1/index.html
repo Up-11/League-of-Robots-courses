@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			let watched = ['Интерстеллар', 'Начало', 'Зелёная книга']
+
+			function showMovies() {
+				let movieList = 'Ваш список фильмов:\n'
+				for (let i = 0; i < watched.length; i++) {
+					movieList += `${i + 1}. ${watched[i]}\n`
+				}
+				alert(movieList)
+			}
+
+			function addMovie() {
+				let movie = prompt('Введите название фильма:')
+				if (movie) {
+					watched.push(movie)
+					alert(`Фильм "${movie}" добавлен!`)
+					showMovies()
+				}
+			}
+
+			function removeMovie() {
+				let number = prompt('Введите номер фильма для удаления:')
+				if (number > 0 && number <= watched.length) {
+					let deleted = watched.splice(number - 1, 1)
+					alert(`Фильм "${deleted}" удалён.`)
+					showMovies()
+				} else {
+					alert('Неверный номер!')
+				}
+			}
+
+			function getStats() {
+				alert(`Статистика:
+Всего фильмов: ${watched.length}
+Первый фильм: ${watched[0]}
+Последний фильм: ${watched[watched.length - 1]}`)
+			}
+
+			function sortMovies() {
+				watched.sort()
+				alert('Фильмы отсортированы по алфавиту!')
+				showMovies()
+			}
+
+			function menu() {
+				while (true) {
+					let choice = prompt(`Кинотека - выберите действие:
+1. Показать все фильмы
+2. Добавить фильм
+3. Удалить фильм
+4. Статистика
+5. Сортировать фильмы
+6. Выход
+
+Введите номер действия (1-7):`)
+
+					if (choice === '1') {
+						showMovies()
+					} else if (choice === '2') {
+						addMovie()
+					} else if (choice === '3') {
+						removeMovie()
+					} else if (choice === '4') {
+						getStats()
+					} else if (choice === '5') {
+						sortMovies()
+					} else if (choice === '6') {
+						alert('До свидания!')
+						return
+					} else {
+						alert('Неверный выбор! Пожалуйста, введите число от 1 до 7')
+					}
+				}
+			}
+
+			alert('Добро пожаловать в Кинотеку!')
+			menu()
+		</script>
+	</body>
+</html>

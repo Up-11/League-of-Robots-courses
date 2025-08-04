@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Упрощенный переключатель тем</title>
+		<style>
+			:root {
+				--bg-primary: #ffffff;
+				--bg-secondary: #f0f0f0;
+				--text-primary: #333333;
+				--text-secondary: #666666;
+				--accent: #4a86e8;
+				--accent-hover: #3a6bc8;
+				--border: #e0e0e0;
+				--card-bg: #ffffff;
+				--shadow: rgba(0, 0, 0, 0.1);
+			}
+
+			[data-theme='dark'] {
+				--bg-primary: #121212;
+				--bg-secondary: #1e1e1e;
+				--text-primary: #f5f5f5;
+				--text-secondary: #b0b0b0;
+				--accent: #5d9df5;
+				--accent-hover: #4a86e8;
+				--border: #333333;
+				--card-bg: #1e1e1e;
+				--shadow: rgba(0, 0, 0, 0.4);
+			}
+
+			[data-theme='green'] {
+				--bg-primary: #f0f9f0;
+				--bg-secondary: #daf0da;
+				--text-primary: #1a331a;
+				--text-secondary: #2d5a2d;
+				--accent: #4caf50;
+				--accent-hover: #3d8b40;
+				--border: #c5e1c5;
+				--card-bg: #e6f7e6;
+				--shadow: rgba(76, 175, 80, 0.2);
+			}
+
+			[data-theme='red'] {
+				--bg-primary: #fff0f0;
+				--bg-secondary: #f9dada;
+				--text-primary: #4a1a1a;
+				--text-secondary: #7a2d2d;
+				--accent: #f44336;
+				--accent-hover: #d32f2f;
+				--border: #f5c2c2;
+				--card-bg: #ffecec;
+				--shadow: rgba(244, 67, 54, 0.2);
+			}
+
+			[data-theme='purple'] {
+				--bg-primary: #f9f0ff;
+				--bg-secondary: #eedaff;
+				--text-primary: #331a4a;
+				--text-secondary: #5a2d7a;
+				--accent: #9c27b0;
+				--accent-hover: #7b1fa2;
+				--border: #e0c2f5;
+				--card-bg: #f4e6ff;
+				--shadow: rgba(156, 39, 176, 0.2);
+			}
+
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+				transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+			}
+
+			body {
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+				background-color: var(--bg-primary);
+				color: var(--text-primary);
+				line-height: 1.6;
+				padding: 20px;
+			}
+
+			.container {
+				max-width: 800px;
+				margin: 0 auto;
+			}
+
+			header {
+				text-align: center;
+				padding: 20px 0;
+				margin-bottom: 30px;
+			}
+
+			h1 {
+				font-size: 2rem;
+				margin-bottom: 20px;
+				color: var(--accent);
+			}
+
+			.theme-buttons {
+				display: flex;
+				justify-content: center;
+				gap: 10px;
+				margin-bottom: 30px;
+				flex-wrap: wrap;
+			}
+
+			.theme-btn {
+				padding: 10px 15px;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+				font-weight: 500;
+			}
+
+			.theme-btn.light {
+				background-color: #4a86e8;
+				color: white;
+			}
+
+			.theme-btn.dark {
+				background-color: #333;
+				color: white;
+			}
+
+			.theme-btn.green {
+				background-color: #4caf50;
+				color: white;
+			}
+
+			.theme-btn.red {
+				background-color: #f44336;
+				color: white;
+			}
+
+			.theme-btn.purple {
+				background-color: #9c27b0;
+				color: white;
+			}
+
+			.card {
+				background-color: var(--card-bg);
+				border-radius: 10px;
+				padding: 25px;
+				box-shadow: 0 4px 8px var(--shadow);
+				border: 1px solid var(--border);
+				margin-bottom: 20px;
+			}
+
+			.card h2 {
+				color: var(--accent);
+				margin-bottom: 15px;
+			}
+
+			.card p {
+				color: var(--text-secondary);
+				margin-bottom: 15px;
+			}
+
+			.current-theme {
+				display: inline-block;
+				padding: 8px 15px;
+				background-color: var(--accent);
+				color: white;
+				border-radius: 20px;
+				font-weight: 500;
+				margin-top: 10px;
+			}
+
+			footer {
+				text-align: center;
+				padding: 20px 0;
+				margin-top: 30px;
+				color: var(--text-secondary);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<header>
+				<h1>Переключатель тем</h1>
+				<div class="theme-buttons">
+					<button class="theme-btn light" data-theme="light">Светлая</button>
+					<button class="theme-btn dark" data-theme="dark">Тёмная</button>
+					<button class="theme-btn green" data-theme="green">Зелёная</button>
+					<button class="theme-btn red" data-theme="red">Красная</button>
+					<button class="theme-btn purple" data-theme="purple">
+						Фиолетовая
+					</button>
+				</div>
+			</header>
+
+			<main>
+				<div class="card">
+					<h2>Простой переключатель тем</h2>
+					<p>
+						Эта версия использует только кнопки для переключения между темами.
+						Все циклы, массивы и объекты удалены для максимального упрощения
+						кода.
+					</p>
+					<p>
+						Текущая тема:
+						<span class="current-theme" id="current-theme">Светлая</span>
+					</p>
+				</div>
+
+				<div class="card">
+					<h2>Как это работает</h2>
+					<p>
+						Каждая кнопка при клике устанавливает соответствующий атрибут
+						data-theme для элемента body, что активирует нужные CSS-переменные.
+					</p>
+					<p>
+						Выбранная тема сохраняется в localStorage браузера и автоматически
+						применяется при следующем посещении страницы.
+					</p>
+				</div>
+			</main>
+
+			<footer>
+				<p>© 2023 Упрощенный переключатель тем</p>
+			</footer>
+		</div>
+
+		<script>
+			const body = document.body
+			const themeButtons = document.querySelectorAll('.theme-btn')
+			const currentThemeDisplay = document.getElementById('current-theme')
+
+			const lightTheme = document.querySelector('.theme-btn.light')
+			const darkTheme = document.querySelector('.theme-btn.dark')
+			const greenTheme = document.querySelector('.theme-btn.green')
+			const redTheme = document.querySelector('.theme-btn.red')
+			const purpleTheme = document.querySelector('.theme-btn.purple')
+
+			const lightName = 'Светлая'
+			const darkName = 'Тёмная'
+			const greenName = 'Зелёная'
+			const redName = 'Красная'
+			const purpleName = 'Фиолетовая'
+
+			function loadTheme() {
+				const savedTheme = localStorage.getItem('theme')
+				if (savedTheme) {
+					body.setAttribute('data-theme', savedTheme)
+					updateCurrentThemeName(savedTheme)
+				}
+			}
+
+			function updateCurrentThemeName(theme) {
+				if (theme === 'light') currentThemeDisplay.textContent = lightName
+				else if (theme === 'dark') currentThemeDisplay.textContent = darkName
+				else if (theme === 'green') currentThemeDisplay.textContent = greenName
+				else if (theme === 'red') currentThemeDisplay.textContent = redName
+				else if (theme === 'purple')
+					currentThemeDisplay.textContent = purpleName
+			}
+
+			lightTheme.addEventListener('click', function () {
+				body.setAttribute('data-theme', 'light')
+				localStorage.setItem('theme', 'light')
+				updateCurrentThemeName('light')
+			})
+
+			darkTheme.addEventListener('click', function () {
+				body.setAttribute('data-theme', 'dark')
+				localStorage.setItem('theme', 'dark')
+				updateCurrentThemeName('dark')
+			})
+
+			greenTheme.addEventListener('click', function () {
+				body.setAttribute('data-theme', 'green')
+				localStorage.setItem('theme', 'green')
+				updateCurrentThemeName('green')
+			})
+			redTheme.addEventListener('click', function () {
+				body.setAttribute('data-theme', 'red')
+				localStorage.setItem('theme', 'red')
+				updateCurrentThemeName('red')
+			})
+			purpleTheme.addEventListener('click', function () {
+				body.setAttribute('data-theme', 'purple')
+				localStorage.setItem('theme', 'purple')
+				updateCurrentThemeName('purple')
+			})
+
+			loadTheme()
+		</script>
+	</body>
+</html>

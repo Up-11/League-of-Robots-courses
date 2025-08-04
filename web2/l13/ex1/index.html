@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Управление стилями элементов</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			}
+
+			body {
+				background: #1a2a6c;
+				background: linear-gradient(135deg, #1a2a6c, #2a5a9c, #3a8acc);
+				color: #fff;
+				min-height: 100vh;
+				padding: 20px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.container {
+				max-width: 700px;
+				width: 100%;
+				margin: 0 auto;
+			}
+
+			header {
+				text-align: center;
+				padding: 30px 0;
+				margin-bottom: 20px;
+			}
+
+			h1 {
+				font-size: 2.5rem;
+				margin-bottom: 10px;
+				text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+				color: #ffcc00;
+			}
+
+			.content {
+				display: grid;
+				grid-template-columns: 1fr;
+				gap: 30px;
+				margin-bottom: 40px;
+			}
+
+			.panel {
+				background: rgba(255, 255, 255, 0.1);
+				backdrop-filter: blur(10px);
+				border-radius: 15px;
+				padding: 25px;
+				box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+				border: 1px solid rgba(255, 255, 255, 0.2);
+			}
+
+			.panel-title {
+				font-size: 1.5rem;
+				margin-bottom: 20px;
+				text-align: center;
+				color: #ffcc00;
+			}
+
+			.element-container {
+				display: flex;
+				justify-content: center;
+				margin: 25px 0;
+				min-height: 200px;
+			}
+
+			.target-element {
+				width: 180px;
+				height: 180px;
+				background: #4a86e8;
+				border-radius: 10px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 1.2rem;
+				font-weight: bold;
+				text-align: center;
+				padding: 15px;
+				transition: all 0.4s ease;
+				box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+				cursor: pointer;
+			}
+
+			.controls {
+				display: grid;
+				grid-template-columns: 1fr;
+				gap: 15px;
+			}
+
+			.btn {
+				background: linear-gradient(to right, #3498db, #2c3e50);
+				color: white;
+				border: none;
+				padding: 15px;
+				border-radius: 8px;
+				font-size: 1.1rem;
+				font-weight: 600;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 10px;
+			}
+
+			.btn:hover {
+				transform: translateY(-3px);
+				box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+				background: linear-gradient(to right, #2c3e50, #3498db);
+			}
+
+			.btn:active {
+				transform: translateY(1px);
+			}
+
+			.status {
+				margin-top: 20px;
+				padding: 15px;
+				background: rgba(0, 0, 0, 0.2);
+				border-radius: 8px;
+				font-size: 1.1rem;
+				text-align: center;
+			}
+
+			.hidden {
+				display: none;
+			}
+
+			.bordered {
+				border: 5px solid #f200ff;
+			}
+
+			.shadow-effect {
+				box-shadow: 10px 10px 25px rgba(0, 255, 0, 0.7);
+			}
+
+			.rotated {
+				transform: rotate(20deg);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<header>
+				<h1>Управление стилями элементов</h1>
+				<p>Используйте кнопки для изменения свойств элемента</p>
+			</header>
+
+			<div class="content">
+				<div class="panel">
+					<div class="element-container">
+						<div id="element1" class="target-element">Элемент</div>
+					</div>
+					<div class="controls">
+						<button id="toggleVisibility" class="btn">
+							Переключить видимость
+						</button>
+						<button id="toggleBorder" class="btn">Переключить границу</button>
+						<button id="toggleShadow" class="btn">Переключить тень</button>
+						<button id="toggleRotation" class="btn">
+							Переключить вращение
+						</button>
+						<button id="resetStyles" class="btn">Сбросить стили</button>
+					</div>
+					<div class="status" id="status1">
+						Статус: Элемент видим, без границы, без тени, не повёрнут
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			const element = document.getElementById('element1')
+			const status = document.getElementById('status1')
+
+			const toggleVisibility = document.getElementById('toggleVisibility')
+			const toggleBorder = document.getElementById('toggleBorder')
+			const toggleShadow = document.getElementById('toggleShadow')
+			const toggleRotation = document.getElementById('toggleRotation')
+			const resetStyles = document.getElementById('resetStyles')
+
+			toggleVisibility.addEventListener('click', () => {
+				if (element.classList.contains('hidden')) {
+					element.classList.remove('hidden')
+				} else {
+					element.classList.add('hidden')
+				}
+				updateStatus()
+			})
+
+			toggleBorder.addEventListener('click', () => {
+				element.classList.toggle('bordered')
+				updateStatus()
+			})
+
+			toggleShadow.addEventListener('click', () => {
+				element.classList.toggle('shadow-effect')
+				updateStatus()
+			})
+
+			toggleRotation.addEventListener('click', () => {
+				element.classList.toggle('rotated')
+				updateStatus()
+			})
+
+			resetStyles.addEventListener('click', () => {
+				element.classList.remove(
+					'hidden',
+					'bordered',
+					'shadow-effect',
+					'rotated'
+				)
+				updateStatus()
+			})
+
+			function updateStatus() {
+				let statusText = 'Статус: '
+
+				if (element.classList.contains('hidden')) {
+					statusText += 'Элемент скрыт, '
+				} else {
+					statusText += 'Элемент видим, '
+				}
+
+				if (element.classList.contains('bordered')) {
+					statusText += 'с границей, '
+				} else {
+					statusText += 'без границы, '
+				}
+				if (element.classList.contains('shadow-effect')) {
+					statusText += 'с тенью, '
+				} else {
+					statusText += 'без тени, '
+				}
+
+				if (element.classList.contains('rotated')) {
+					statusText += 'повёрнут'
+				} else {
+					statusText += 'не повёрнут'
+				}
+
+				status.textContent = statusText
+			}
+
+			updateStatus()
+		</script>
+	</body>
+</html>

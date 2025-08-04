@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<button id="myBtn">Кликов: 0</button>
+	</body>
+	<script>
+		const button = document.getElementById('myBtn')
+		let counter = 0
+
+		button.addEventListener('click', function () {
+			counter++
+			button.textContent = `Кликов: ${counter}`
+		})
+	</script>
+</html>

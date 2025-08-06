@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Интерактивный пользовательский тег</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				max-width: 800px;
+				margin: 20px auto;
+				padding: 20px;
+			}
+
+			h1 {
+				color: #2c3e50;
+				text-align: center;
+			}
+
+			.instructions {
+				background-color: #f9f9f9;
+				padding: 15px;
+				border-radius: 5px;
+				margin-bottom: 20px;
+			}
+
+			.container {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 15px;
+				justify-content: center;
+				margin: 30px 0;
+			}
+
+			my-tag {
+				display: inline-block;
+				padding: 15px 30px;
+				background-color: #3498db;
+				color: white;
+				border-radius: 4px;
+				font-weight: bold;
+				cursor: pointer;
+				transition: background-color 0.3s;
+				min-width: 180px;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Пользовательский тег с интерактивом</h1>
+
+		<div class="instructions">
+			<h2>Как взаимодействовать:</h2>
+			<ul>
+				<li><strong>Клик</strong> - изменить текст сообщения</li>
+				<li><strong>Наведение курсора</strong> - изменить цвет фона</li>
+				<li><strong>Двойной клик</strong> - сбросить в начальное состояние</li>
+			</ul>
+		</div>
+
+		<div class="container">
+			<my-tag></my-tag>
+			<my-tag></my-tag>
+			<my-tag></my-tag>
+		</div>
+
+		<script>
+			class MyTag extends HTMLElement {
+				messages = [
+					'Добрый день!',
+					'Привет, мир!',
+					'Как ваши дела?',
+					'Хорошего настроения!',
+					'Удачи в обучении!',
+				]
+
+				colors = [
+					'#3498db', // синий
+					'#2ecc71', // зеленый
+					'#e74c3c', // красный
+					'#f39c12', // оранжевый
+					'#9b59b6', // фиолетовый
+				]
+
+				constructor() {
+					super()
+
+					this.messageIndex = 0
+					this.colorIndex = 0
+					this.updateContent()
+
+					this.addEventListener('click', () => this.changeMessage())
+					this.addEventListener('mouseenter', () => this.changeColor())
+					this.addEventListener('dblclick', () => this.resetState())
+				}
+
+				updateContent() {
+					this.textContent = this.messages[this.messageIndex]
+					this.style.backgroundColor = this.colors[this.colorIndex]
+				}
+
+				changeMessage() {
+					this.messageIndex = (this.messageIndex + 1) % this.messages.length
+					this.updateContent()
+				}
+
+				changeColor() {
+					this.colorIndex = (this.colorIndex + 1) % this.colors.length
+					this.style.backgroundColor = this.colors[this.colorIndex]
+				}
+
+				resetState() {
+					this.messageIndex = 0
+					this.colorIndex = 0
+					this.updateContent()
+				}
+			}
+
+			customElements.define('my-tag', MyTag)
+		</script>
+	</body>
+</html>

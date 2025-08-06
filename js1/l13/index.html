@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<a id="home" href="index.html">Home</a>
+		<a id="home" href="https://liga-robotov.com">Home</a>
+		<a id="home" href="https://liga-robotov.com" style="color: navy">Home</a>
+		<script>
+			// получаем элемент
+			const element = document.getElementById('home')
+			// удаляем атрибут style
+			element.removeAttribute('style')
+		</script>
+		<script>
+			// получаем элемент
+			const element = document.getElementById('home')
+			// создаем узел-атрибут style
+			const attribute = document.createAttribute('style')
+			// устанавливаем значение узла-атрибута
+			attribute.value = 'color:navy;'
+			// устанавливаем узел атрибута
+			element.setAttributeNode(attribute)
+		</script>
+		<script>
+			// получаем элемент
+			const element = document.getElementById('home')
+			// устанавливаем атрибут href
+			element.setAttribute('href', 'https://liga-robotov.com')
+			// устанавливаем атрибут style
+			element.setAttribute('style', 'color:navy;')
+		</script>
+		<script>
+			// получаем элемент
+			const element = document.getElementById('home')
+			// получаем атрибуты элемента
+			console.log(element.style) // CSSStyleDeclaration
+			console.log(element.getAttribute('style')) // color:red;
+		</script>
+		<script>
+			const name = window.localStorage.getItem('name')
+			console.log(name)
+			// 'Лига роботов'
+
+			window.sessionStorage.setItem('name', 'Лига роботов')
+			window.sessionStorage.getItem('name')
+			window.sessionStorage.removeItem('name')
+			window.sessionStorage.removeItem('user')
+			window.sessionStorage.clear()
+
+			// получаем элемент
+			const element = document.getElementById('home')
+			// получаем атрибуты элемента
+			console.log(element.getAttribute('id')) // home
+			console.log(element.getAttribute('class')) // link
+			console.log(element.getAttribute('href')) // index.html
+
+			// получаем элемент
+			const element = document.getElementById('home')
+			// получаем атрибуты элемента
+			console.log(element.id) // home
+			console.log(element.className) // link
+			console.log(element.href) // file:///Users/eugene/Documents/app/index.html
+		</script>
+	</body>
+</html>

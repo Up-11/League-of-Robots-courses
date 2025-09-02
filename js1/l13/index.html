@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
@@ -6,6 +6,9 @@
 		<title>Document</title>
 	</head>
 	<body>
+		<div class="attribute-div" title="attribute" data-size="small"></div>
+		<div data-small></div>
+		<div data-long-size-atribute="small"></div>
 		<a id="home" href="index.html">Home</a>
 		<a id="home" href="https://liga-robotov.com">Home</a>
 		<a id="home" href="https://liga-robotov.com" style="color: navy">Home</a>
@@ -41,29 +44,160 @@
 			console.log(element.getAttribute('style')) // color:red;
 		</script>
 		<script>
-			const name = window.localStorage.getItem('name')
-			console.log(name)
-			// 'Лига роботов'
+									const name = window.localStorage.getItem('name')
+									console.log(name)
+									// 'Лига роботов'
 
-			window.sessionStorage.setItem('name', 'Лига роботов')
-			window.sessionStorage.getItem('name')
-			window.sessionStorage.removeItem('name')
-			window.sessionStorage.removeItem('user')
-			window.sessionStorage.clear()
+									window.sessionStorage.setItem('name', 'Лига роботов')
+									window.sessionStorage.getItem('name')
+									window.sessionStorage.removeItem('name')
+									window.sessionStorage.removeItem('user')
+									window.sessionStorage.clear()
 
-			// получаем элемент
-			const element = document.getElementById('home')
-			// получаем атрибуты элемента
-			console.log(element.getAttribute('id')) // home
-			console.log(element.getAttribute('class')) // link
-			console.log(element.getAttribute('href')) // index.html
+									// получаем элемент
+									const element = document.getElementById('home')
+									// получаем атрибуты элемента
+									console.log(element.getAttribute('id')) // home
+									console.log(element.getAttribute('class')) // link
+									console.log(element.getAttribute('href')) // index.html
 
-			// получаем элемент
-			const element = document.getElementById('home')
-			// получаем атрибуты элемента
-			console.log(element.id) // home
-			console.log(element.className) // link
-			console.log(element.href) // file:///Users/eugene/Documents/app/index.html
+									// получаем элемент
+									const element = document.getElementById('home')
+									// получаем атрибуты элемента
+									console.log(element.id) // home
+									console.log(element.className) // link
+									console.log(element.href) // file:///Users/eugene/Documents/app/index.html
+
+			            const items = document.querySelectorAll('li')
+
+			const firstItem = items[0]
+
+			console.log(firstItem.dataset)
+			// { id: '1541', episode: '1' }
+
+
+						      <h1>Известные ситхи</h1>
+						<ul>
+						  <li data-id="1541" data-episode="1">Дарт Мол</li>
+						  <li data-id="9434" data-episode="4">Дарт Вейдер</li>
+						  <li data-id="5549" data-episode="4">Дарт Сидиус</li>
+						</ul>
+		</script>
+	</body>
+</html> -->
+<!-- <!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Variables в CSS3</title>
+		<style>
+			div {
+				--text-color: #ff4757;
+				--text-size: 20px;
+				height: 40px;
+				font-family: Verdana;
+			}
+
+			#div1 {
+				font-size: var(--text-size);
+			}
+
+			#div2 {
+				color: var(--text-color);
+			}
+
+			#p1 {
+				color: var(--text-color);
+				font-size: var(--text-size);
+			}
+			--text-color: #ff4757;
+			--text-size: 20px;
+		</style>
+	</head>
+	<body>
+		<div id="div1">Первый блок.</div>
+		<div id="div2">Второй блок.</div>
+		<div><p id="p1">Третий блок.</p></div>
+	</body>
+</html> -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Темы в CSS3</title>
+		<style>
+			:root {
+				--panel-bg-color: #dfe4ea;
+				--container-bg-color: #f1f2f6;
+				--text-color: #2f3542;
+			}
+			:root[theme='dark'] {
+				--panel-bg-color: #2f3542;
+				--container-bg-color: #57606f;
+				--text-color: #ced6e0;
+			}
+			* {
+				margin: 0;
+			}
+			html {
+				height: 100%;
+			}
+			body {
+				height: 100%;
+				font-family: Verdana;
+				display: flex;
+				flex-direction: column;
+				color: var(--text-color);
+			}
+			nav {
+				padding: 1.2rem;
+				background: var(--panel-bg-color);
+			}
+			nav a {
+				padding: 1.1rem;
+			}
+			.container {
+				flex: 1;
+				padding: 1rem;
+				background: var(--container-bg-color);
+			}
+			footer {
+				padding: 1rem;
+				background: var(--panel-bg-color);
+			}
+			input[type='button'] {
+				color: var(--text-color);
+				background: var(--panel-bg-color);
+
+				padding: 0.3rem;
+				margin: 0.2rem;
+				font-size: 1rem;
+			}
+		</style>
+	</head>
+	<body>
+		<nav class="navbar"><a>Главная</a>|<a>Контакты</a>|<a>О сайте</a></nav>
+		<div class="container">
+			<div>
+				<input type="button" value="Toggle" id="toggle-theme" />
+			</div>
+			<h2 class="title">Заголовок</h2>
+			<p class="content">Основное содержимое...</p>
+		</div>
+		<footer>
+			<p>Все права разрешены ©2018</p>
+		</footer>
+		<script>
+			const toggleBtn = document.querySelector('#toggle-theme')
+			toggleBtn.addEventListener('click', function () {
+				if (document.documentElement.hasAttribute('theme')) {
+					document.documentElement.removeAttribute('theme')
+				} else {
+					document.documentElement.setAttribute('theme', 'dark')
+				}
+			})
 		</script>
 	</body>
 </html>

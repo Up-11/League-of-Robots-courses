@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Фруктовая корзина</title>
+		<style>
+			body {
+				font-family: 'Arial Rounded MT Bold', sans-serif;
+				max-width: 500px;
+				margin: 0 auto;
+				padding: 20px;
+				text-align: center;
+				background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+				min-height: 100vh;
+			}
+			h1 {
+				color: #2ecc71;
+				text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+				margin-bottom: 30px;
+			}
+			.container {
+				background: white;
+				border-radius: 15px;
+				padding: 20px;
+				box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+			}
+			.input-group {
+				display: flex;
+				margin-bottom: 20px;
+			}
+			#fruitInput {
+				padding: 12px;
+				flex: 1;
+				border: 2px solid #ddd;
+				border-radius: 8px 0 0 8px;
+				font-size: 16px;
+				outline: none;
+			}
+			#fruitInput:focus {
+				border-color: #2ecc71;
+			}
+			#addBtn {
+				padding: 12px 20px;
+				background-color: #2ecc71;
+				color: white;
+				border: none;
+				border-radius: 0 8px 8px 0;
+				cursor: pointer;
+				font-weight: bold;
+				transition: all 0.3s;
+			}
+			#addBtn:hover {
+				background-color: #27ae60;
+			}
+			#fruitsList {
+				margin-top: 20px;
+			}
+			.fruit-item {
+				padding: 12px 15px;
+				margin: 8px 0;
+				background-color: #f8f9fa;
+				border-radius: 8px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				transition: all 0.3s;
+				border-left: 4px solid #2ecc71;
+			}
+			.fruit-item:hover {
+				transform: translateX(5px);
+				box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+			}
+			.fruit-item button {
+				background-color: #e74c3c;
+				color: white;
+				border: none;
+				padding: 5px 10px;
+				border-radius: 5px;
+				cursor: pointer;
+				transition: all 0.3s;
+			}
+			.fruit-item button:hover {
+				background-color: #c0392b;
+			}
+			.stats {
+				margin-top: 20px;
+				padding: 15px;
+				background-color: #3498db;
+				color: white;
+				border-radius: 8px;
+				font-weight: bold;
+			}
+			.fruit-emoji {
+				font-size: 20px;
+				margin-right: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>🍏 Фруктовая корзина 🍊</h1>
+
+			<div class="input-group">
+				<input type="text" id="fruitInput" placeholder="Добавьте фрукт..." />
+				<button id="addBtn">+</button>
+			</div>
+
+			<div id="fruitsList"></div>
+
+			<div class="stats">Всего фруктов: <span id="totalCount">0</span></div>
+		</div>
+
+		<script>
+			let fruits = [
+				{ name: 'Яблоко', emoji: '🍎' },
+				{ name: 'Банан', emoji: '🍌' },
+				{ name: 'Апельсин', emoji: '🍊' },
+			]
+
+			const fruitsList = document.getElementById('fruitsList')
+			const totalCount = document.getElementById('totalCount')
+			const fruitInput = document.getElementById('fruitInput')
+			const addBtn = document.getElementById('addBtn')
+
+			const fruitEmojis = {
+				яблоко: '🍎',
+				банан: '🍌',
+				апельсин: '🍊',
+				груша: '🍐',
+				виноград: '🍇',
+				арбуз: '🍉',
+				клубника: '🍓',
+				лимон: '🍋',
+				персик: '🍑',
+				ананас: '🍍',
+				вишня: '🍒',
+				киви: '🥝',
+			}
+
+			function renderFruits() {
+				fruitsList.innerHTML = ''
+
+				fruits.forEach((fruit, index) => {
+					const fruitItem = document.createElement('div')
+					fruitItem.className = 'fruit-item'
+					fruitItem.innerHTML = `
+                    <div>
+                        <span class="fruit-emoji">${fruit.emoji}</span>
+                        <span>${fruit.name}</span>
+                    </div>
+                    <button data-index="${index}">×</button>
+                `
+					fruitsList.appendChild(fruitItem)
+				})
+
+				totalCount.textContent = fruits.length
+
+				document.querySelectorAll('#fruitsList button').forEach(btn => {
+					btn.addEventListener('click', function () {
+						const index = parseInt(this.getAttribute('data-index'))
+						removeFruit(index)
+					})
+				})
+			}
+
+			function addFruit() {
+				const fruitName = fruitInput.value.trim()
+
+				if (fruitName) {
+					const emoji = fruitEmojis[fruitName.toLowerCase()] || '🍎'
+
+					fruits.push({ name: fruitName, emoji })
+					fruitInput.value = ''
+					renderFruits()
+				}
+			}
+
+			function removeFruit(index) {
+				fruits = fruits.filter((fruit, i) => i !== index)
+				renderFruits()
+			}
+
+			addBtn.addEventListener('click', addFruit)
+			fruitInput.addEventListener('keypress', function (e) {
+				if (e.key === 'Enter') addFruit()
+			})
+
+			renderFruits()
+		</script>
+	</body>
+</html>

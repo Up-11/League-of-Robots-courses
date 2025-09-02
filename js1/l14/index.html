@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Пример анимации с Anime.js</title>
+		<style></style>
+	</head>
+	<body>
+		<script>
+			// параметры => действия_функции
+			// function hello() {
+			// 	console.log('Hello')
+			// }
+			// hello() // вызываем функцию
+
+			// const hello = () => console.log('Hello')
+			// hello()
+
+			// const print = mes => console.log(mes)
+
+			// print('Hello ligaRobotov.com')
+			// print('Welcome to JavaScript')
+
+			// const print = mes => console.log(mes)
+
+			// print('Hello Metanit.com')
+			// print('Welcome to JavaScript')
+
+			// const sum = (x, y) => console.log('Sum =', x + y)
+
+			// sum(1, 2) // Sum = 3
+			// sum(4, 3) // Sum = 7
+			// sum(103, 2) // Sum = 105
+
+			// const hello = name => `Hello, ${name}`
+
+			// console.log(hello('Tom')) // Hello, Tom
+			// console.log(hello('Bob')) // Hello, Bob
+			// console.log(hello('Frodo Baggins')) // Hello, Frodo Baggins
+
+			// const user = (userName, userAge) => ({ name: userName, age: userAge })
+
+			// let tom = user('Tom', 34)
+			// let bob = user('Bob', 25)
+
+			// console.log(tom.name, tom.age) // "Tom", 34
+			// console.log(bob.name, bob.age) // "Bob", 25
+
+			// const square = n => {
+			// 	const result = n * n
+			// 	console.log(result)
+			// }
+
+			// square(5) // 25
+			// square(6) // 36
+
+			// const square = n => {
+			// 	const result = n * n
+			// 	return result
+			// }
+
+			// console.log(square(5)) // 25
+
+			// function printPerson(person) {
+			// 	console.log('Name:', person[0])
+			// 	console.log('Age:', person[1])
+			// 	console.log('Email:', person[2])
+			// 	console.log('=========================')
+			// }
+			// const tom = ['Tom', 39, 'tom@example.com']
+			// const bob = ['Bob', 43, 'bob@example.com']
+
+			// printPerson(tom)
+			// printPerson(bob)
+
+			// function printPerson(username, age, email) {
+			// 	console.log('Name:', username)
+			// 	console.log('Age:', age)
+			// 	console.log('Email:', email)
+			// 	console.log('=========================')
+			// }
+
+			// const tom = ['Tom', 39, 'tom@example.com']
+			// const bob = ['Bob', 43, 'bob@example.com']
+
+			// printPerson(...tom)
+			// printPerson(...bob)
+
+			// printPerson(...tom)
+
+			// printPerson(tom[0], tom[1], tom[2])
+
+			// function sum(x, y) {
+			// 	if (y === undefined) y = 5
+			// 	if (x === undefined) x = 8
+			// 	const z = x + y
+			// 	console.log(z)
+			// }
+			// sum() // 13
+			// sum(6) // 11
+			// sum(6, 4) // 10
+
+			// function sum(x = 8, y = 5) {
+			// 	const z = x + y
+			// 	console.log(z)
+			// }
+			// sum() // 13
+			// sum(6) // 11
+			// sum(6, 4) // 10
+
+			// function sum(x = 8, y = 10 + x) {
+			// 	const z = x + y
+			// 	console.log(z)
+			// }
+			// sum() // 26
+			// sum(6) // 22
+			// sum(6, 4) // 10
+
+			// function sum() {
+			// 	let result = 0
+			// 	for (const n of arguments) result += n
+			// 	console.log(result)
+			// }
+			// sum(6) // 6
+			// sum(6, 4) // 10
+			// sum(6, 4, 5) // 15
+
+			// function sum(a, b, c) {
+			// 	console.log('a =', a)
+			// 	console.log('b =', b)
+			// 	console.log('c =', c)
+
+			// 	let result = 0
+			// 	for (const n of arguments) result += n
+			// 	console.log('result =', result)
+			// }
+			// sum(6, 4, 5, 8) // 23
+
+			// function sum(nums) {
+			// 	let result = 0 // результат функции
+			// 	if (arguments.length >= 1) {
+			// 		// если передан как минимум один параметр
+			// 		result = result + arguments[0] // обращаемся к первому параметру
+			// 	}
+			// 	if (arguments.length >= 2) {
+			// 		// если передано как минимум два параметра
+			// 		result = result + arguments[1] // обращаемся ко второму параметру
+			// 	}
+			// 	console.log('result =', result)
+			// }
+
+			// sum(6) // result = 6
+			// sum(6, 5) // result = 11
+			// sum(6, 5, 4) // result = 11 - третий параметр не учитывается
+
+			// function sum(...numbers) {
+			// 	let result = 0
+			// 	for (const n of numbers) result += n
+			// 	console.log(result)
+			// }
+			// sum(6, 4, 5) // 15\
+
+			// function display(season, ...temps) {
+			// 	console.log(season)
+			// 	for (index in temps) {
+			// 		console.log(temps[index])
+			// 	}
+			// }
+			// display('Весна', -2, -3, 4, 2, 5)
+			// display('Лето', 20, 23, 31)
+
+			// function sum(numbers) {
+			// 	let result = 0
+			// 	for (const n of numbers) result += n
+			// 	console.log('result =', result)
+			// }
+			// const nums = [6, 4, 5, 8]
+			// sum(nums) // result = 23
+
+			// function greet(name, callback) {
+			// 	console.log('Привет, ' + name + '!')
+			// 	callback()
+			// }
+
+			// function callMe() {
+			// 	console.log('Я была вызвана как callback-функция!')
+			// }
+
+			// greet('Мир', function () {
+			// 	console.log('Я была вызвана как callback-функция!')
+			// })
+
+			// greet('Мир', () => {
+			// 	console.log('Я была вызвана как callback-функция!')
+			// })
+			// // Вывод:
+			// // Привет, Мир!
+			// // Я была вызвана как callback-функция!
+
+			// const numbers = [1, 2, 3, 4]
+			// numbers.forEach(num => {
+			// 	const square = num * num
+			// 	console.log('Квадрат числа равен: ' + square)
+			// })
+
+			// function sliceFruit(fruit) {
+			// 	console.log('Разрезаю ' + fruit + '!')
+			// }
+			// const fruits = ['🍎', '🍊', '🍋', '🍓', '🥝']
+			// fruits.forEach(sliceFruit)
+
+			// const food = ['🍔', '🍟', '🍦']
+
+			// food.forEach(item => {
+			// 	console.log('Мам, купи ' + item + '!')
+			// })
+
+			const food = ['🍔', '🍟', '🍦']
+			food.forEach((item, index, arr) => {
+				console.log('Текущий элемент ' + item)
+				console.log('Его индекс ' + index)
+				console.log('Исходный массив ' + arr)
+			})
+
+			const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+			const squares = nums.map(function (num) {
+				return num * num
+			})
+			console.log(squares)
+			// [1, 4, 9, 16, 25, 36, 49, 64, 81]\
+
+			const objects = nums.map(function (num) {
+				return {
+					field: num,
+				}
+			})
+			console.log(objects)
+			// [
+			//   { field: 1 },
+			//   { field: 2 },
+			//   ...
+			//   { field: 9 }
+			// ]
+		</script>
+	</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			console.log('A')
+			console.log('B')
+			console.log('C')
+
+			function greet() {
+				console.log('Hello!')
+			}
+
+			delay(5000)
+			greet()
+
+			setTimeout(function greet() {
+				console.log('Hello!')
+			}, 5000)
+
+			setTimeout(function greet() {
+				console.log('Hello!')
+			}, 5000)
+
+			console.log("I'm being called before greet function.")
+
+			function outer() {
+				function inner() {
+					// Функция 3
+					console.log('Hello!')
+				}
+
+				// Функция 2
+				inner()
+			}
+
+			// Функция 1
+			outer()
+
+			inner()
+			outer()
+
+			console.log('Hello!')
+			inner()
+			outer()
+
+			function main() {
+				setTimeout(function greet() {
+					console.log('Hello!')
+				}, 2000)
+
+				console.log('Bye!')
+			}
+
+			main()
+
+			setTimeout()
+			main()
+
+			console.log('Bye!')
+			main()
+
+			console.log('Hello!')
+			greet()
+
+			setTimeout(() => {
+				setTimeout(() => {
+					setTimeout(() => {
+						setTimeout(() => {
+							console.log('Hello!')
+						}, 5000)
+					}, 5000)
+				}, 5000)
+			}, 5000)
+
+			function request(url, onSuccess) {
+				/*...*/
+			}
+
+			request('/api/users/1', function (user) {
+				request(`/api/photos/${user.id}/`, function (photo) {
+					request(`/api/crop/${photo.id}/`, function (response) {
+						console.log(response)
+					})
+				})
+			})
+
+			function request(url) {
+				return new Promise(function (resolve, reject) {
+					let responseFromServer
+					/*...*/
+					resolve(responseFromServer)
+				})
+			}
+
+			request('/api/users/1')
+				.then(user => request(`/api/photos/${user.id}/`))
+				.then(photo => request(`/api/crop/${photo.id}/`))
+				.then(response => console.log(response))
+
+			request('/api/users/1')
+				.then(user => request(`/api/photos/${user.id}/`))
+				.then(photo => request(`/api/crop/${photo.id}/`))
+				.then(response => console.log(response))
+				.catch(error => console.error(error))
+
+			request('/api/users/1')
+				.then(user => user.id)
+				.then(userId => request(`/api/photos/${userId}/`))
+				.then(photo => request(`/api/crop/${photo.id}/`))
+				.then(response => console.log(response))
+				.catch(error => console.error(error))
+
+			const timerId = setTimeout(() => {
+				console.log('Прошла 1 секунда')
+			}, 1000)
+
+			console.log(timerId)
+			// Выведет число
+
+			setTimeout(
+				function (greeting) {
+					console.log(`Через секунду напечатаю «${greeting}»`)
+				},
+				1000,
+				'Привет'
+			)
+		</script>
+	</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Виртуальный питомец</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				text-align: center;
+				background: #f0f8ff;
+				padding: 50px;
+			}
+			.pet {
+				font-size: 100px;
+				margin: 20px;
+			}
+			.status {
+				font-size: 24px;
+				color: #333;
+				margin: 20px;
+			}
+			button {
+				padding: 10px 20px;
+				font-size: 18px;
+				margin: 10px;
+				background: #4caf50;
+				color: white;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>🐶 Мой виртуальный питомец</h1>
+
+		<div class="pet" id="petEmoji">😴</div>
+		<div class="status" id="status">Спит...</div>
+
+		<button onclick="wakeUp()">Разбудить</button>
+		<button onclick="play()">Поиграть</button>
+		<button onclick="feed()">Покормить</button>
+
+		<script>
+			let petState = 'sleeping'
+
+			function wakeUp() {
+				document.getElementById('petEmoji').textContent = '🐶'
+				document.getElementById('status').textContent = 'Проснулся!'
+				petState = 'awake'
+
+				setTimeout(() => {
+					if (petState === 'awake') {
+						document.getElementById('status').textContent = 'Хочу играть! 🎾'
+					}
+				}, 5000)
+			}
+
+			function play() {
+				document.getElementById('petEmoji').textContent = '🐕'
+				document.getElementById('status').textContent = 'Играем! 🎾'
+				petState = 'playing'
+
+				setTimeout(() => {
+					document.getElementById('status').textContent = 'Устал... 💤'
+					setTimeout(() => {
+						document.getElementById('petEmoji').textContent = '😴'
+						document.getElementById('status').textContent = 'Спит...'
+						petState = 'sleeping'
+					}, 2000)
+				}, 3000)
+			}
+
+			function feed() {
+				document.getElementById('petEmoji').textContent = '🐶'
+				document.getElementById('status').textContent = 'Ням-ням! 🍖'
+
+				setTimeout(() => {
+					document.getElementById('status').textContent = 'Наелся! 😊'
+				}, 4000)
+			}
+		</script>
+	</body>
+</html>

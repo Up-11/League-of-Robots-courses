@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Анализ URL</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				margin: 20px;
+				background-color: white;
+				color: #333;
+			}
+
+			h1 {
+				color: #2c3e50;
+				margin-bottom: 10px;
+			}
+
+			.url-display {
+				background-color: #f8f9fa;
+				border: 1px solid #dee2e6;
+				border-radius: 4px;
+				padding: 12px;
+				margin-bottom: 20px;
+				font-family: monospace;
+				font-size: 16px;
+			}
+
+			table {
+				width: 100%;
+				border-collapse: collapse;
+				margin-top: 10px;
+			}
+
+			th,
+			td {
+				border: 1px solid #dee2e6;
+				padding: 12px 15px;
+				text-align: left;
+			}
+
+			th {
+				background-color: #e9ecef;
+				font-weight: bold;
+			}
+
+			tr:nth-child(even) {
+				background-color: #f8f9fa;
+			}
+
+			.highlight {
+				background-color: #e7f1ff;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>window.location</h1>
+
+		<div class="url-display">
+			http://example.com:3000/profile/edit?key=1&key=2#user-info
+		</div>
+
+		<table>
+			<thead>
+				<tr>
+					<th>Свойство</th>
+					<th>Значение</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>protocol</td>
+					<td>http:</td>
+				</tr>
+				<tr>
+					<td>host</td>
+					<td>example.com:3000</td>
+				</tr>
+				<tr>
+					<td>hostname</td>
+					<td>example.com</td>
+				</tr>
+				<tr>
+					<td>port</td>
+					<td>3000</td>
+				</tr>
+				<tr>
+					<td>pathname</td>
+					<td>/profile/edit</td>
+				</tr>
+				<tr>
+					<td>search</td>
+					<td>?key=1&key=2</td>
+				</tr>
+				<tr>
+					<td>hash</td>
+					<td>#user-info</td>
+				</tr>
+				<tr class="highlight">
+					<td>host</td>
+					<td>example.com:3000</td>
+				</tr>
+				<tr class="highlight">
+					<td>origin</td>
+					<td>http://example.com:3000</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

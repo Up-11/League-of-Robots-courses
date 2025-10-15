@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Собери робота</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				max-width: 600px;
+				margin: 20px auto;
+				padding: 20px;
+				background-color: #f0f8ff;
+			}
+
+			.container {
+				background: white;
+				padding: 20px;
+				border-radius: 10px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			}
+
+			h1 {
+				color: #2c3e50;
+				text-align: center;
+			}
+
+			.robot-part {
+				margin: 10px 0;
+				padding: 10px;
+				background: #e8f4f8;
+				border-radius: 5px;
+			}
+
+			button {
+				background: #3498db;
+				color: white;
+				border: none;
+				padding: 10px 15px;
+				margin: 5px;
+				border-radius: 5px;
+				cursor: pointer;
+			}
+
+			button:hover {
+				background: #2980b9;
+			}
+
+			#robot-display {
+				text-align: center;
+				font-size: 3rem;
+				margin: 20px 0;
+			}
+
+			.message {
+				padding: 10px;
+				margin: 10px 0;
+				border-radius: 5px;
+				text-align: center;
+				font-weight: bold;
+				min-height: 20px;
+			}
+
+			.success {
+				background: #d4edda;
+				color: #155724;
+			}
+
+			.error {
+				background: #f8d7da;
+				color: #721c24;
+			}
+
+			.status {
+				margin-left: 10px;
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>🤖 Собери своего робота!</h1>
+
+			<div id="robot-display">❓</div>
+
+			<div class="robot-part">
+				<h3>Голова робота:</h3>
+				<button onclick="addPart('head')">Добавить голову</button>
+				<span id="head-status" class="status">Не добавлена</span>
+			</div>
+
+			<div class="robot-part">
+				<h3>Тело робота:</h3>
+				<button onclick="addPart('body')">Добавить тело</button>
+				<span id="body-status" class="status">Не добавлено</span>
+			</div>
+
+			<div class="robot-part">
+				<h3>Ноги робота:</h3>
+				<button onclick="addPart('legs')">Добавить ноги</button>
+				<span id="legs-status" class="status">Не добавлены</span>
+			</div>
+
+			<div style="text-align: center; margin: 20px 0">
+				<button
+					onclick="buildRobot()"
+					style="background: #27ae60; padding: 15px 25px"
+				>
+					🏗️ Собрать робота!
+				</button>
+				<button
+					onclick="resetGame()"
+					style="background: #e74c3c; padding: 15px 25px"
+				>
+					🔄 Начать заново
+				</button>
+			</div>
+
+			<div id="message" class="message"></div>
+
+			<div
+				style="
+					background: #fff3cd;
+					padding: 15px;
+					border-radius: 5px;
+					margin-top: 20px;
+				"
+			>
+				<h3>📝 Задание:</h3>
+				<p>1. Нажимай кнопки, чтобы добавить детали роботу</p>
+				<p>2. Каждая деталь добавляется случайным образом (50% шанс успеха)</p>
+				<p>3. Когда все три детали будут добавлены - собери робота!</p>
+				<p>4. Если робот собран успешно - ты победил!</p>
+			</div>
+		</div>
+
+		<script>
+			let robotParts = {
+				head: false,
+				body: false,
+				legs: false,
+			}
+
+			function addPart(partName) {
+				const success = Math.random() < 0.5
+
+				if (success) {
+					robotParts[partName] = true
+					document.getElementById(partName + '-status').textContent =
+						'✅ Добавлено'
+					document.getElementById(partName + '-status').style.color = 'green'
+					showMessage('Отлично! Деталь добавлена', 'success')
+				} else {
+					robotParts[partName] = false
+					document.getElementById(partName + '-status').textContent =
+						'❌ Не получилось'
+					document.getElementById(partName + '-status').style.color = 'red'
+					showMessage('Ой! Деталь не добавилась. Попробуй еще раз', 'error')
+				}
+
+				updateRobotDisplay()
+				checkWinCondition()
+			}
+
+			function buildRobot() {
+				const allPartsAdded =
+					robotParts.head && robotParts.body && robotParts.legs
+
+				if (allPartsAdded) {
+					showMessage('🎉 Ура! Робот собран! Ты победил!', 'success')
+					document.getElementById('robot-display').textContent = '🤖'
+				} else {
+					const missingParts = []
+					if (!robotParts.head) missingParts.push('голову')
+					if (!robotParts.body) missingParts.push('тело')
+					if (!robotParts.legs) missingParts.push('ноги')
+
+					showMessage(`❌ Не хватает: ${missingParts.join(', ')}`, 'error')
+				}
+			}
+
+			function checkWinCondition() {
+				const allPartsAdded =
+					robotParts.head && robotParts.body && robotParts.legs
+
+				if (allPartsAdded) {
+					showMessage(
+						'🎉 Все детали собраны! Нажми "Собрать робота!"',
+						'success'
+					)
+				}
+			}
+
+			function updateRobotDisplay() {
+				const display = document.getElementById('robot-display')
+				const addedParts = Object.values(robotParts).filter(Boolean).length
+
+				const emojis = ['❓', '👤', '👥', '🦿']
+				display.textContent = emojis[addedParts] || '🤖'
+			}
+
+			function showMessage(text, type) {
+				const messageEl = document.getElementById('message')
+				messageEl.textContent = text
+				messageEl.className = 'message ' + type
+			}
+
+			function resetGame() {
+				robotParts = {
+					head: false,
+					body: false,
+					legs: false,
+				}
+
+				const parts = ['head', 'body', 'legs']
+				parts.forEach(part => {
+					document.getElementById(part + '-status').textContent = 'Не добавлена'
+					document.getElementById(part + '-status').style.color = 'black'
+				})
+
+				document.getElementById('robot-display').textContent = '❓'
+				document.getElementById('message').textContent = ''
+				document.getElementById('message').className = 'message'
+			}
+
+			window.onload = function () {
+				updateRobotDisplay()
+			}
+		</script>
+	</body>
+</html>

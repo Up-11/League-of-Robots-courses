@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Mock VK Posts</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			body {
+				font-family: Arial, sans-serif;
+				background-color: #f5f5f5;
+				padding: 20px;
+			}
+
+			.container {
+				max-width: 800px;
+				margin: 0 auto;
+			}
+
+			h1 {
+				text-align: center;
+				margin-bottom: 30px;
+				color: #333;
+			}
+
+			.form {
+				background: white;
+				padding: 20px;
+				border-radius: 8px;
+				margin-bottom: 30px;
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			}
+
+			.form input,
+			.form textarea {
+				width: 100%;
+				padding: 10px;
+				margin-bottom: 15px;
+				border: 1px solid #ddd;
+				border-radius: 4px;
+				font-size: 14px;
+			}
+
+			.form textarea {
+				height: 100px;
+				resize: vertical;
+			}
+
+			.buttons {
+				display: flex;
+				gap: 10px;
+			}
+
+			button {
+				padding: 10px 20px;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				font-size: 14px;
+			}
+
+			.btn-primary {
+				background: #0077ff;
+				color: white;
+			}
+
+			.btn-secondary {
+				background: #6c757d;
+				color: white;
+			}
+
+			.btn-danger {
+				background: #dc3545;
+				color: white;
+			}
+
+			.post {
+				background: white;
+				padding: 20px;
+				margin-bottom: 20px;
+				border-radius: 8px;
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			}
+
+			.post-header {
+				display: flex;
+				justify-content: space-between;
+				margin-bottom: 10px;
+			}
+
+			.post-author {
+				font-weight: bold;
+				color: #0077ff;
+			}
+
+			.post-date {
+				color: #666;
+				font-size: 12px;
+			}
+
+			.post-title {
+				font-weight: bold;
+				margin-bottom: 10px;
+				font-size: 18px;
+			}
+
+			.post-content {
+				margin-bottom: 15px;
+				line-height: 1.5;
+			}
+
+			.post-actions {
+				display: flex;
+				gap: 10px;
+				justify-content: flex-end;
+			}
+
+			.message {
+				padding: 15px;
+				margin-bottom: 20px;
+				border-radius: 4px;
+			}
+
+			.error {
+				background: #f8d7da;
+				color: #721c24;
+				border: 1px solid #f5c6cb;
+			}
+
+			.success {
+				background: #d1edff;
+				color: #004085;
+				border: 1px solid #b8daff;
+			}
+
+			.loading {
+				text-align: center;
+				padding: 20px;
+				color: #666;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Mock VK Posts</h1>
+
+			<div id="message"></div>
+
+			<div class="form">
+				<h3 id="form-title">Создать новый пост</h3>
+				<input type="text" id="author" placeholder="Автор" required />
+				<input type="text" id="title" placeholder="Заголовок поста" required />
+				<textarea
+					id="content"
+					placeholder="Содержание поста"
+					required
+				></textarea>
+				<div class="buttons">
+					<button
+						type="button"
+						id="cancelBtn"
+						style="display: none"
+						class="btn-secondary"
+					>
+						Отмена
+					</button>
+					<button type="button" id="submitBtn" class="btn-primary">
+						Создать пост
+					</button>
+				</div>
+			</div>
+
+			<div id="posts-container">
+				<div class="loading">Загрузка постов...</div>
+			</div>
+		</div>
+
+		<script>
+			const API_URL = 'https://0594c48b9b34d094.mokky.dev/posts'
+
+			let posts = []
+			let currentEditId = null
+
+			const postsContainer = document.getElementById('posts-container')
+			const messageDiv = document.getElementById('message')
+			const authorInput = document.getElementById('author')
+			const titleInput = document.getElementById('title')
+			const contentInput = document.getElementById('content')
+			const submitBtn = document.getElementById('submitBtn')
+			const cancelBtn = document.getElementById('cancelBtn')
+			const formTitle = document.getElementById('form-title')
+
+			document.addEventListener('DOMContentLoaded', function () {
+				loadPosts()
+				setupEventListeners()
+			})
+
+			function setupEventListeners() {
+				submitBtn.addEventListener('click', handleSubmit)
+				cancelBtn.addEventListener('click', cancelEdit)
+			}
+
+			async function loadPosts() {
+				try {
+					const response = await fetch(API_URL)
+					if (!response.ok) throw new Error('Ошибка загрузки постов')
+					posts = await response.json()
+					renderPosts()
+				} catch (error) {
+					showMessage('Ошибка при загрузке постов: ' + error.message, 'error')
+				}
+			}
+
+			async function createPost(postData) {
+				const response = await fetch(API_URL, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						author: postData.author,
+						title: postData.title,
+						content: postData.content,
+						date: new Date().toISOString(),
+					}),
+				})
+
+				if (!response.ok) throw new Error('Ошибка создания поста')
+				return await response.json()
+			}
+
+			async function updatePost(id, postData) {
+				const response = await fetch(`${API_URL}/${id}`, {
+					method: 'PATCH',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						author: postData.author,
+						title: postData.title,
+						content: postData.content,
+						date: new Date().toISOString(),
+					}),
+				})
+
+				if (!response.ok) throw new Error('Ошибка обновления поста')
+				return await response.json()
+			}
+
+			async function deletePost(id) {
+				const response = await fetch(`${API_URL}/${id}`, {
+					method: 'DELETE',
+				})
+
+				if (!response.ok) throw new Error('Ошибка удаления поста')
+				return true
+			}
+
+			async function handleSubmit() {
+				const postData = {
+					author: authorInput.value,
+					title: titleInput.value,
+					content: contentInput.value,
+				}
+
+				if (!postData.author || !postData.title || !postData.content) {
+					showMessage('Заполните все поля', 'error')
+					return
+				}
+
+				try {
+					if (currentEditId) {
+						await updatePost(currentEditId, postData)
+						showMessage('Пост успешно обновлен!', 'success')
+					} else {
+						await createPost(postData)
+						showMessage('Пост успешно создан!', 'success')
+					}
+
+					resetForm()
+					await loadPosts()
+				} catch (error) {
+					showMessage('Ошибка: ' + error.message, 'error')
+				}
+			}
+
+			function editPost(post) {
+				currentEditId = post.id
+
+				authorInput.value = post.author
+				titleInput.value = post.title
+				contentInput.value = post.content
+
+				formTitle.textContent = 'Редактировать пост'
+				submitBtn.textContent = 'Обновить пост'
+				cancelBtn.style.display = 'block'
+			}
+
+			function cancelEdit() {
+				currentEditId = null
+				resetForm()
+			}
+
+			function resetForm() {
+				authorInput.value = ''
+				titleInput.value = ''
+				contentInput.value = ''
+
+				formTitle.textContent = 'Создать новый пост'
+				submitBtn.textContent = 'Создать пост'
+				cancelBtn.style.display = 'none'
+				currentEditId = null
+			}
+
+			async function handleDeletePost(id) {
+				if (!confirm('Вы уверены, что хотите удалить этот пост?')) {
+					return
+				}
+
+				try {
+					await deletePost(id)
+					showMessage('Пост успешно удален!', 'success')
+					await loadPosts()
+				} catch (error) {
+					showMessage('Ошибка при удалении: ' + error.message, 'error')
+				}
+			}
+
+			function renderPosts() {
+				if (posts.length === 0) {
+					postsContainer.innerHTML =
+						'<div class="loading">Постов пока нет</div>'
+					return
+				}
+
+				const sortedPosts = [...posts].sort(
+					(a, b) => new Date(b.date) - new Date(a.date)
+				)
+
+				postsContainer.innerHTML = sortedPosts
+					.map(
+						post => `
+                <div class="post">
+                    <div class="post-header">
+                        <div class="post-author">${post.author}</div>
+                        <div class="post-date">${formatDate(post.date)}</div>
+                    </div>
+                    <div class="post-title">${post.title}</div>
+                    <div class="post-content">${post.content}</div>
+                    <div class="post-actions">
+                        <button class="btn-primary edit-btn-${post.id}">
+                            Редактировать
+                        </button>
+                        <button class="btn-danger delete-btn-${post.id}">
+                            Удалить
+                        </button>
+                    </div>
+                </div>
+            `
+					)
+					.join('')
+
+				sortedPosts.forEach(post => {
+					const editBtn = document.querySelector(`.edit-btn-${post.id}`)
+					const deleteBtn = document.querySelector(`.delete-btn-${post.id}`)
+
+					if (editBtn) {
+						editBtn.addEventListener('click', () => editPost(post))
+					}
+
+					if (deleteBtn) {
+						deleteBtn.addEventListener('click', () => handleDeletePost(post.id))
+					}
+				})
+			}
+
+			function showMessage(text, type) {
+				messageDiv.innerHTML = `
+                <div class="message ${type}">
+                    ${text}
+                </div>
+            `
+
+				setTimeout(() => {
+					messageDiv.innerHTML = ''
+				}, 3000)
+			}
+
+			function formatDate(dateString) {
+				const date = new Date(dateString)
+				return date.toLocaleDateString('ru-RU', {
+					year: 'numeric',
+					month: 'long',
+					day: 'numeric',
+					hour: '2-digit',
+					minute: '2-digit',
+				})
+			}
+		</script>
+	</body>
+</html>

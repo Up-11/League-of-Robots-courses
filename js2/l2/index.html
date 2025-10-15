@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>js2-l2</title>
+	</head>
+	<body>
+		<script>
+			const primitive = 50
+			const num = new Number(100)
+
+			console.log(typeof primitive)
+			// number
+
+			console.log(typeof num)
+			// object
+
+			console.log(num == 100)
+			// true, при приведении к числовому типу значения
+			// будут одинаковыми
+
+			console.log(num === 100)
+			// false, потому что разные типы данных
+
+			const primitive = 5.001
+			console.log(primitive.toFixed(1))
+			// '5.0'
+
+			console.log((6.04).toFixed(1))
+			// '6.0'
+
+			console.log((5).toFixed(3))
+			// '5.000'
+
+			console.log((6).toFixed(3))
+			// '6.000'
+
+			const currentDate = new Date('August 14, 2022 14:15:30')
+
+			console.log(currentDate.getDay())
+			// 0
+
+			console.log(currentDate.getHours())
+			// 14
+
+			console.log(currentDate.getTime())
+			// 1660475730000
+
+			console.log(currentDate.getFullYear())
+			// 2022
+
+			console.log(currentDate.toISOString())
+			// 2022-08-14T11:15:30.000Z
+
+			const x = -25
+			console.log(Math.abs(x)) // 25
+			const y = 34
+			console.log(Math.abs(y)) // 34
+
+			const max = Math.max(19, 45) // 45
+			const min = Math.min(33, 24) // 24
+
+			const x = Math.ceil(9.2) // 10
+			const y = Math.ceil(-5.9) // -5
+
+			const x = Math.floor(9.2) // 9
+			const y = Math.floor(-5.9) // -6
+
+			const x = Math.round(5.5) // 6
+			const y = Math.round(5.4) // 5
+			const z = Math.round(-5.4) // -5
+			const n = Math.round(-5.5) // -5
+			const m = Math.round(-5.6) // -6
+			console.log(x)
+			console.log(y)
+			console.log(z)
+			console.log(n)
+
+			const x = Math.random()
+
+			const x = Math.pow(2, 3) // 8
+
+			const x = Math.sqrt(121) // 11
+			const y = Math.sqrt(9) // 3
+			const z = Math.sqrt(20) // 4.47213595499958
+
+			const x = Math.log(1) // 0
+			const z = Math.log(10) // 2.302585092994046
+
+			const x = Math.log(Math.E) // 1
+			const z = Math.tan(Math.PI / 4) // 0.10000000000000000
+		</script>
+	</body>
+</html>

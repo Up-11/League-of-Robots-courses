@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+																					window.history.back()
+																					window.history.forward()
+																					window.history.go(2)
+																					// переместит на две позиции вперёд по истории
+
+																					window.history.go(-1)
+																					// переместит назад на одну страницу
+
+																					window.history.go(0)
+
+																					window.history.pushState({}, '', 'about.html')
+
+																					window.history.replaceState({}, '', 'index.html')
+																					// если выполнить этот скрипт на главной странице лиги роботов
+																					console.log(window.location.href)
+																					// 'https://krsk.ligarobotov.ru/'
+
+																					window.location.reload()
+
+																					window.location.replace('https://krsk.ligarobotov.ru/')
+
+																					console.log(window.location.href)
+																					// отобразит текущий адрес
+																					window.location.href = 'https://example.com'
+																					// сделает переход по указанному адресу
+
+																					window.location.hash = 'в-работе'
+																					// проскролит страницу до элемента с `id="в-работе"` если такой присутствует на странице
+																					console.log(window.location.hash)
+																					// напечатает якорь
+
+																					navigator.geolocation
+																					   Geolocation {}
+
+
+																		clearWatch: ƒ clearWatch()
+																		getCurrentPosition: ƒ getCurrentPosition()
+																		watchPosition: ƒ watchPosition()
+																		constructor: ƒ Geolocation()
+																		Symbol(Symbol.toStringTag): "Geolocation"
+																		[[Prototype]]: Object
+
+
+
+															GeolocationPosition {
+															  coords: GeolocationCoordinates,
+															  timestamp: 1665141114856
+															}
+
+
+												  GeolocationCoordinates {
+												  latitude: 36.01068878173828,
+												  longitude: 37.20875549316406,
+												  altitude: null,
+												  accuracy: 40,
+												  altitudeAccuracy: null,
+												  …
+												}
+
+
+									navigator.geolocation.getCurrentPosition(position => {
+									  const { latitude, longitude } = position.coords
+									})
+
+									// Записываем в переменные latitude и longitude
+									// координаты пользователя
+
+
+
+						   navigator.geolocation.getCurrentPosition(success, error, options)
+
+						function error() {
+						  alert('Где ты вообще...') // На случай ошибки
+						}
+
+						const options = {
+						  enableHighAccuracy: true,
+						  maximumAge: 1000,
+						  timeout: 3600
+						}
+
+
+
+			   const geoId = navigator.geolocation.watchPosition(position => {
+			  // Наблюдаем за геолокацией и храним в geoId идентификатор
+			})
+
+			function geoWatchStopper() {
+			  navigator.geolocation.clearWatch(geoId)
+			  // Останавливаем наблюдение
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Список пользователей</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			body {
+				font-family: 'Arial', sans-serif;
+				background: #f5f5f5;
+				color: #333;
+				padding: 20px;
+			}
+
+			.container {
+				max-width: 800px;
+				margin: 0 auto;
+				background: white;
+				border-radius: 10px;
+				padding: 20px;
+				box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+			}
+
+			h1 {
+				text-align: center;
+				margin-bottom: 20px;
+				color: #2c3e50;
+			}
+
+			.search-box {
+				margin-bottom: 20px;
+			}
+
+			#searchInput {
+				width: 100%;
+				padding: 12px;
+				border: 2px solid #ddd;
+				border-radius: 8px;
+				font-size: 16px;
+			}
+
+			#searchInput:focus {
+				border-color: #3498db;
+				outline: none;
+			}
+
+			.users-grid {
+				display: grid;
+				gap: 15px;
+			}
+
+			.user-card {
+				background: #f8f9fa;
+				border: 1px solid #e9ecef;
+				border-radius: 8px;
+				padding: 15px;
+				transition: transform 0.2s;
+			}
+
+			.user-card:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			}
+
+			.user-name {
+				font-size: 18px;
+				font-weight: bold;
+				color: #2c3e50;
+				margin-bottom: 8px;
+			}
+
+			.user-email {
+				color: #7f8c8d;
+				margin-bottom: 5px;
+			}
+
+			.user-phone {
+				color: #95a5a6;
+				font-size: 14px;
+			}
+
+			.loading {
+				text-align: center;
+				padding: 20px;
+				color: #7f8c8d;
+			}
+
+			.error {
+				text-align: center;
+				padding: 20px;
+				color: #e74c3c;
+				background: #fadbd8;
+				border-radius: 8px;
+			}
+
+			.no-results {
+				text-align: center;
+				padding: 20px;
+				color: #95a5a6;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>📊 Список пользователей</h1>
+
+			<div class="search-box">
+				<input
+					type="text"
+					id="searchInput"
+					placeholder="Поиск по имени или email..."
+				/>
+			</div>
+
+			<div id="usersContainer">
+				<div class="loading">Загрузка пользователей...</div>
+			</div>
+		</div>
+
+		<script>
+			let allUsers = []
+			const usersContainer = document.getElementById('usersContainer')
+			const searchInput = document.getElementById('searchInput')
+
+			document.addEventListener('DOMContentLoaded', function () {
+				loadUsers()
+			})
+
+			async function loadUsers() {
+				try {
+					const response = await fetch(
+						'https://jsonplaceholder.typicode.com/users'
+					)
+
+					if (!response.ok) {
+						throw new Error('Ошибка загрузки данных')
+					}
+
+					allUsers = await response.json()
+
+					displayUsers(allUsers)
+				} catch (error) {
+					showError('Не удалось загрузить пользователей: ' + error.message)
+				}
+			}
+
+			function displayUsers(users) {
+				if (users.length === 0) {
+					usersContainer.innerHTML =
+						'<div class="no-results">Пользователи не найдены</div>'
+					return
+				}
+
+				const usersHTML = users
+					.map(
+						user => `
+                <div class="user-card">
+                    <div class="user-name">${user.name}</div>
+                    <div class="user-email">📧 ${user.email}</div>
+                    <div class="user-phone">📞 ${user.phone}</div>
+                </div>
+            `
+					)
+					.join('')
+
+				usersContainer.innerHTML = usersHTML
+			}
+
+			function showError(message) {
+				usersContainer.innerHTML = `<div class="error">${message}</div>`
+			}
+
+			searchInput.addEventListener('input', function () {
+				const searchTerm = this.value.toLowerCase().trim()
+
+				if (searchTerm === '') {
+					displayUsers(allUsers)
+				} else {
+					const filteredUsers = allUsers.filter(
+						user =>
+							user.name.toLowerCase().includes(searchTerm) ||
+							user.email.toLowerCase().includes(searchTerm)
+					)
+					displayUsers(filteredUsers)
+				}
+			})
+
+			searchInput.addEventListener('keypress', function (e) {
+				if (e.key === 'Enter') {
+					this.blur()
+				}
+			})
+		</script>
+	</body>
+</html>

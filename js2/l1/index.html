@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script src="script.js"></script>
+		<script>
+			let a = 5 + 3 // Сложение → 8
+			let b = 10 / 2 // Деление → 5
+			let c = a * b // Умножение → 40
+
+			let name = 'Саша'
+			let greeting = 'Привет, ' + name + '!' // "Привет, Саша!"
+
+			let isRainy = false // Просто значение
+			let isGreater = 10 > 5 // Сравнение → true
+			let isEqual = 10 === '10' // Сравнение (строгое) → false
+
+			let futureValue // Объявили переменную, но не дали значение
+			console.log(futureValue) // Выведет: undefined
+
+			let userAge = null // Мы пока не знаем возраст, но явно указали, что его нет
+
+			let score = 100 // 1. Number
+			let playerName = 'Alice' // 2. String
+			let isGameOver = false // 3. Boolean
+			let highScore // 4. undefined
+			let cashBonus = '50' // 5. String
+			let secretCode = null // 6. null
+
+			// let score = 100
+			// let playerName = 'Alice'
+			// let isGameOver = false
+			// let highScore
+			// let cashBonus = '50'
+			// let secretCode = null
+
+			// Ключевое слово  Имя функции   Параметр
+			function greetUser(name) {
+				// Тело функции (инструкции)
+				let message = 'Привет, ' + name + '!'
+				console.log(message)
+			}
+			// Возвращаемое значение (результат) - в этой функции его нет, но место показано
+
+			function sum(a, b) {
+				return a + b // Функция ВОЗВРАЩАЕТ результат
+			}
+			let result = sum(5, 3) // Результат (8) сохраняется в переменную result
+
+			// Создание массива
+			let fruits = ['Яблоко', 'Апельсин', 'Банан', 'Киви']
+
+			// Визуализация:
+			// Индексы:     0          1          2        3
+			// Элементы: ["Яблоко", "Апельсин", "Банан", "Киви"]
+
+			console.log(fruits[0]) // → "Яблоко" (первый элемент)
+			console.log(fruits[1]) // → "Апельсин" (второй элемент)
+
+			// Можно изменять элементы:
+			fruits[2] = 'Манго' // Теперь массив: ["Яблоко", "Апельсин", "Манго", "Киви"]
+
+			// Поиск по ID (находит один элемент)
+			let element = document.getElementById('header')
+
+			// Универсальный поиск (работает с CSS-селекторами)
+			let btn = document.querySelector('.my-button') // по классу
+			let title = document.querySelector('#main-title') // по ID
+
+			// Изменить текст
+			title.textContent = 'Новый заголовок'
+
+			// Изменить стили
+			btn.style.backgroundColor = 'red'
+
+			// Добавить/удалить класс
+			element.classList.add('active')
+
+			let user = {
+				name: 'Анна',
+				age: 15,
+				isStudent: true,
+				hobbies: ['чтение', 'рисование'],
+			}
+		</script>
+	</body>
+</html>

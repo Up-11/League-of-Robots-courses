@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Управление - Флэш-карточки</title>
+		<style>
+			* {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			}
+
+			body {
+				background: #1a1a2e;
+				color: #fff;
+				min-height: 100vh;
+				display: flex;
+			}
+
+			.sidebar {
+				width: 250px;
+				background: #16213e;
+				padding: 30px 20px;
+				height: 100vh;
+				position: fixed;
+				border-right: 2px solid #0f3460;
+			}
+
+			.logo {
+				text-align: center;
+				margin-bottom: 40px;
+			}
+
+			.logo h1 {
+				font-size: 1.8em;
+				color: #e94560;
+			}
+
+			.nav-links {
+				list-style: none;
+			}
+
+			.nav-links li {
+				margin-bottom: 15px;
+			}
+
+			.nav-links a {
+				color: #fff;
+				text-decoration: none;
+				padding: 12px 15px;
+				border-radius: 8px;
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				transition: all 0.3s;
+			}
+
+			.nav-links a:hover {
+				background: #0f3460;
+			}
+
+			.nav-links a.active {
+				background: #e94560;
+			}
+
+			.main-content {
+				flex: 1;
+				margin-left: 250px;
+				padding: 40px;
+			}
+
+			.header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 30px;
+			}
+
+			.btn {
+				background: #e94560;
+				color: white;
+				border: none;
+				padding: 12px 25px;
+				border-radius: 8px;
+				font-size: 1em;
+				font-weight: 600;
+				cursor: pointer;
+				transition: all 0.3s;
+				text-decoration: none;
+				display: inline-block;
+			}
+
+			.btn:hover {
+				background: #ff6b81;
+				transform: translateY(-2px);
+			}
+
+			.btn-secondary {
+				background: #0f3460;
+			}
+
+			.btn-secondary:hover {
+				background: #1a4a7a;
+			}
+
+			.btn-danger {
+				background: #c0392b;
+			}
+
+			.btn-danger:hover {
+				background: #e74c3c;
+			}
+
+			.form-section {
+				background: #16213e;
+				padding: 30px;
+				border-radius: 15px;
+				margin-bottom: 30px;
+				border: 2px solid #0f3460;
+			}
+
+			.form-group {
+				margin-bottom: 20px;
+			}
+
+			label {
+				display: block;
+				margin-bottom: 8px;
+				font-weight: 600;
+				color: #fff;
+			}
+
+			input {
+				width: 100%;
+				padding: 12px 15px;
+				border: 2px solid #0f3460;
+				border-radius: 8px;
+				font-size: 16px;
+				background: #1a1a2e;
+				color: #fff;
+				transition: border-color 0.3s;
+			}
+
+			input:focus {
+				outline: none;
+				border-color: #e94560;
+			}
+
+			.cards-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+				gap: 20px;
+			}
+
+			.card {
+				background: #16213e;
+				border: 2px solid #0f3460;
+				border-radius: 10px;
+				padding: 20px;
+				transition: all 0.3s;
+				position: relative;
+			}
+
+			.card:hover {
+				border-color: #e94560;
+				transform: translateY(-5px);
+			}
+
+			.card-word {
+				font-size: 1.3em;
+				font-weight: bold;
+				color: #e94560;
+				margin-bottom: 10px;
+			}
+
+			.card-translation {
+				font-size: 1.1em;
+				color: #fff;
+				margin-bottom: 15px;
+			}
+
+			.card-actions {
+				display: flex;
+				gap: 10px;
+			}
+
+			.card-actions .btn {
+				flex: 1;
+				padding: 8px 15px;
+				font-size: 0.9em;
+			}
+
+			.empty-state {
+				text-align: center;
+				padding: 60px 20px;
+				color: #666;
+			}
+
+			.empty-state .icon {
+				font-size: 4em;
+				margin-bottom: 20px;
+				opacity: 0.5;
+			}
+
+			.message {
+				padding: 15px;
+				border-radius: 8px;
+				margin-bottom: 20px;
+				display: none;
+			}
+
+			.message.success {
+				background: #27ae60;
+				display: block;
+			}
+
+			.message.error {
+				background: #c0392b;
+				display: block;
+			}
+
+			.stats {
+				display: flex;
+				gap: 15px;
+				margin-bottom: 30px;
+			}
+
+			.stat-card {
+				background: #16213e;
+				padding: 20px;
+				border-radius: 10px;
+				text-align: center;
+				border: 1px solid #0f3460;
+				flex: 1;
+			}
+
+			.stat-number {
+				font-size: 2em;
+				color: #e94560;
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="sidebar">
+			<div class="logo">
+				<h1>🎴 Карточки</h1>
+			</div>
+			<ul class="nav-links">
+				<li><a href="index.html">🎮 Изучение</a></li>
+				<li><a href="controls.html" class="active">📝 Управление</a></li>
+			</ul>
+		</div>
+
+		<div class="main-content">
+			<div class="header">
+				<h1>Управление карточками</h1>
+				<div class="stats">
+					<div class="stat-card">
+						<div class="stat-number" id="totalCards">0</div>
+						<div>Всего карточек</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-section">
+				<h2 style="margin-bottom: 20px">Добавить новую карточку</h2>
+				<form id="cardForm">
+					<div class="form-group">
+						<label for="word">Слово или фраза:</label>
+						<input
+							type="text"
+							id="word"
+							placeholder="Например: Hello"
+							required
+						/>
+					</div>
+					<div class="form-group">
+						<label for="translation">Перевод:</label>
+						<input
+							type="text"
+							id="translation"
+							placeholder="Например: Привет"
+							required
+						/>
+					</div>
+					<button type="submit" class="btn">➕ Добавить карточку</button>
+				</form>
+			</div>
+
+			<div id="message" class="message"></div>
+
+			<div class="cards-section">
+				<h2 style="margin-bottom: 20px">Мои карточки</h2>
+				<div id="cardsContainer" class="cards-grid">
+					<div class="empty-state">
+						<div class="icon">📝</div>
+						<h3>Карточек пока нет</h3>
+						<p>Добавьте первую карточку используя форму выше</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			const API_URL = 'https://0594c48b9b34d094.mokky.dev/cards'
+			let cards = []
+
+			const cardForm = document.getElementById('cardForm')
+			const cardsContainer = document.getElementById('cardsContainer')
+			const totalCards = document.getElementById('totalCards')
+			const messageEl = document.getElementById('message')
+
+			document.addEventListener('DOMContentLoaded', loadCards)
+
+			cardForm.addEventListener('submit', async e => {
+				e.preventDefault()
+
+				const word = document.getElementById('word').value.trim()
+				const translation = document.getElementById('translation').value.trim()
+
+				if (!word || !translation) {
+					showMessage('Заполните оба поля!', 'error')
+					return
+				}
+
+				try {
+					await createCard(word, translation)
+					document.getElementById('word').value = ''
+					document.getElementById('translation').value = ''
+					showMessage('Карточка успешно добавлена!', 'success')
+				} catch (error) {
+					showMessage('Ошибка при добавлении карточки', 'error')
+				}
+			})
+
+			async function loadCards() {
+				try {
+					const response = await fetch(API_URL)
+					if (!response.ok) throw new Error('Ошибка загрузки')
+
+					cards = await response.json()
+					renderCards()
+				} catch (error) {
+					showMessage('Ошибка загрузки карточек', 'error')
+				}
+			}
+
+			async function createCard(word, translation) {
+				const response = await fetch(API_URL, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						word: word,
+						translation: translation,
+					}),
+				})
+
+				if (!response.ok) throw new Error('Ошибка создания')
+
+				const newCard = await response.json()
+				cards.push(newCard)
+				renderCards()
+			}
+
+			async function deleteCard(cardId) {
+				if (!confirm('Удалить эту карточку?')) return
+
+				try {
+					const response = await fetch(`${API_URL}/${cardId}`, {
+						method: 'DELETE',
+					})
+
+					if (!response.ok) throw new Error('Ошибка удаления')
+
+					cards = cards.filter(card => card.id !== cardId)
+					renderCards()
+					showMessage('Карточка удалена', 'success')
+				} catch (error) {
+					showMessage('Ошибка при удалении карточки', 'error')
+				}
+			}
+
+			function renderCards() {
+				totalCards.textContent = cards.length
+
+				if (cards.length === 0) {
+					cardsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">📝</div>
+                        <h3>Карточек пока нет</h3>
+                        <p>Добавьте первую карточку используя форму выше</p>
+                    </div>
+                `
+					return
+				}
+
+				cardsContainer.innerHTML = cards
+					.map(
+						card => `
+                <div class="card">
+                    <div class="card-word">${escapeHtml(card.word)}</div>
+                    <div class="card-translation">${escapeHtml(
+											card.translation
+										)}</div>
+                    <div class="card-actions">
+                        <button class="btn btn-danger" onclick="deleteCard(${
+													card.id
+												})">🗑️ Удалить</button>
+                    </div>
+                </div>
+            `
+					)
+					.join('')
+			}
+
+			function showMessage(text, type) {
+				messageEl.textContent = text
+				messageEl.className = `message ${type}`
+
+				setTimeout(() => {
+					messageEl.style.display = 'none'
+				}, 3000)
+			}
+
+			function escapeHtml(unsafe) {
+				return unsafe
+					.replace(/&/g, '&amp;')
+					.replace(/</g, '&lt;')
+					.replace(/>/g, '&gt;')
+					.replace(/"/g, '&quot;')
+					.replace(/'/g, '&#039;')
+			}
+
+			window.deleteCard = deleteCard
+		</script>
+	</body>
+</html>

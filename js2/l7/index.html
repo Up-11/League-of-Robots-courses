@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=
+  , initial-scale=1.0"
+		/>
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			function main() {
+				setTimeout(function greet() {
+					console.log('Hello!')
+				}, 2000)
+
+				console.log('Bye!')
+			}
+
+			main()
+
+			async function request() {}
+			const req = async () => {}
+
+			class SomeClass {
+				async request() {}
+			}
+
+			async function request() {}
+
+			// Сработает:
+			request().then(() => {})
+
+			async function loadPosts() {
+				const response = await fetch('/api/posts/')
+				const data = await response.json()
+				return data
+			}
+
+			async function loadPosts() {
+				try {
+					const response = await fetch('/api/posts/')
+					const data = await response.json()
+					return data
+				} catch (e) {
+					console.log(e)
+				}
+			}
+			const intervalId = setInterval(function () {
+				console.log('Я выполняюсь каждую секунду')
+			}, 1000)
+
+			setInterval(
+				function (name, age) {
+					console.log(`Раз в секунду печатаю имя «${name}» и ${age}`)
+				},
+				1000,
+				'Ivan',
+				33
+			)
+
+			// Раз в секунду печатаю имя «Иван» и 33
+
+			let i = 1
+			setInterval(function print() {
+				console.log(i)
+				i++
+			}, 1000)
+
+			const intervalId = setInterval(function () {
+				console.log('Я выполняюсь каждую секунду')
+			}, 1000)
+
+			clearInterval(intervalId)
+
+			const hero = {
+				nickname: 'BestHealerEver',
+				level: 7,
+				age: 141,
+				race: 'Gnome',
+				isImmortal: false,
+				things: ['sword', 'helmet', 'belt'],
+				money: {
+					gold: 6387,
+					silver: 1264,
+					bronze: 931,
+					diamonds: 2,
+				},
+			}
+
+			console.log(typeof hero)
+			// object
+			console.log(typeof JSON.stringify(hero))
+			// string
+			console.log(JSON.stringify(hero))
+			// '{"nickname":"BestHealerEver","level":7,"age":141,"race":"Gnome","isImmortal":false,"things":["sword","helmet","belt"],"money":{"gold":6387,"silver":1264,"bronze":931,"diamonds":2}}'
+
+			console.log(JSON.stringify(hero, null, 2))
+
+			// {
+			//   "nickname": "BestHealerEver",
+			//   "level": 7,
+			//   "age": 141,
+			//   "race": "Gnome",
+			//   "isImmortal": false,
+			//   "things": [
+			//     "sword",
+			//     "helmet",
+			//     "belt"
+			//   ],
+			//   "money": {
+			//     "gold": 6387,
+			//     "silver": 1264,
+			//     "bronze": 931,
+			//     "diamonds": 2
+			//   }
+			// }
+
+			const json =
+				'{"name":"Luke Skywalker","height":"172","mass":"77","hair_color":"blond","skin_color":"fair","eye_color":"blue","birth_year":"19BBY","gender":"male"}'
+			const jedi = JSON.parse(json)
+
+			console.log(jedi.name)
+			// Luke Skywalker
+			console.log(jedi.gender)
+			// male
+			console.log(jedi.birth_year)
+			// 19BBY
+		</script>
+	</body>
+</html>

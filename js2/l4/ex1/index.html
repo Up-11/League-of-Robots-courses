@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Космический код: Собери Солнечную систему</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			body {
+				font-family: 'Arial', sans-serif;
+				background: #0b3d91;
+				color: white;
+				min-height: 100vh;
+				padding: 20px;
+			}
+
+			.container {
+				max-width: 1200px;
+				margin: 0 auto;
+			}
+
+			header {
+				text-align: center;
+				margin-bottom: 30px;
+			}
+
+			h1 {
+				font-size: 2em;
+				margin-bottom: 10px;
+				color: #4ecdc4;
+			}
+
+			.mission-text {
+				font-size: 1.2em;
+			}
+
+			.game-area {
+				display: grid;
+				grid-template-columns: 250px 1fr;
+				gap: 20px;
+				height: 600px;
+			}
+
+			/* Стили для зоны планет */
+			.planets-zone {
+				background: rgba(255, 255, 255, 0.1);
+				border-radius: 10px;
+				padding: 15px;
+			}
+
+			.planets-container {
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+				margin-top: 15px;
+			}
+
+			.planet {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				padding: 10px;
+				background: rgba(255, 255, 255, 0.1);
+				border-radius: 8px;
+				cursor: grab;
+				border: 2px solid transparent;
+			}
+
+			.planet:hover {
+				background: rgba(255, 255, 255, 0.2);
+			}
+
+			.planet.dragging {
+				opacity: 0.6;
+			}
+
+			.planet.correct {
+				border-color: #4ecdc4;
+				background: rgba(78, 205, 196, 0.2);
+			}
+
+			.planet-icon {
+				width: 25px;
+				height: 25px;
+				border-radius: 50%;
+			}
+
+			/* Стили для солнечной системы */
+			.solar-system {
+				position: relative;
+				background: rgba(0, 0, 0, 0.3);
+				border-radius: 10px;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				padding: 20px;
+			}
+
+			.sun {
+				width: 80px;
+				height: 80px;
+				background: #ff8c00;
+				border-radius: 50%;
+				box-shadow: 0 0 30px #ff8c00;
+				margin-bottom: 40px;
+			}
+
+			.orbit-slots {
+				display: flex;
+				flex-direction: column;
+				gap: 15px;
+				width: 100%;
+				max-width: 400px;
+			}
+
+			.orbit-slot {
+				display: flex;
+				align-items: center;
+				gap: 15px;
+				padding: 15px;
+				background: rgba(255, 255, 255, 0.05);
+				border: 2px dashed rgba(255, 255, 255, 0.3);
+				border-radius: 10px;
+				min-height: 70px;
+			}
+
+			.orbit-slot.occupied {
+				border-style: solid;
+				border-color: rgba(255, 255, 255, 0.5);
+			}
+
+			.orbit-number {
+				width: 30px;
+				height: 30px;
+				background: rgba(255, 255, 255, 0.2);
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-weight: bold;
+			}
+
+			.slot-content {
+				flex: 1;
+				min-height: 40px;
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+
+			.empty-slot {
+				color: rgba(255, 255, 255, 0.5);
+				font-style: italic;
+			}
+
+			.planet-in-slot {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				padding: 8px 12px;
+				background: rgba(255, 255, 255, 0.1);
+				border-radius: 8px;
+			}
+
+			/* Стили для панели информации */
+			.info-panel {
+				background: rgba(255, 255, 255, 0.1);
+				border-radius: 10px;
+				padding: 15px;
+				margin-top: 20px;
+				grid-column: 1 / -1;
+			}
+
+			.instruction {
+				background: rgba(255, 193, 7, 0.2);
+				border-radius: 8px;
+				padding: 10px;
+				margin-bottom: 15px;
+			}
+
+			.instruction p {
+				margin: 5px 0;
+				font-size: 0.9em;
+			}
+
+			.result-message {
+				padding: 10px;
+				border-radius: 8px;
+				text-align: center;
+				background: rgba(255, 255, 255, 0.1);
+				min-height: 80px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.success {
+				background: rgba(46, 204, 113, 0.3);
+				border: 1px solid #2ecc71;
+			}
+
+			.error {
+				background: rgba(231, 76, 60, 0.3);
+				border: 1px solid #e74c3c;
+			}
+
+			/* Адаптивность */
+			@media (max-width: 768px) {
+				.game-area {
+					grid-template-columns: 1fr;
+					height: auto;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<header>
+				<h1>🚀 Собери Солнечную систему</h1>
+				<p class="mission-text">Перетащи планеты на правильные орбиты!</p>
+			</header>
+
+			<div class="game-area">
+				<div class="planets-zone">
+					<h2>Планеты</h2>
+					<div class="planets-container">
+						<div class="planet" draggable="true" data-planet="mercury">
+							<div class="planet-icon" style="background: #8c7853"></div>
+							<span>Меркурий</span>
+						</div>
+						<div class="planet" draggable="true" data-planet="venus">
+							<div class="planet-icon" style="background: #ffc649"></div>
+							<span>Венера</span>
+						</div>
+						<div class="planet" draggable="true" data-planet="earth">
+							<div class="planet-icon" style="background: #6b93d6"></div>
+							<span>Земля</span>
+						</div>
+						<div class="planet" draggable="true" data-planet="mars">
+							<div class="planet-icon" style="background: #ff6b51"></div>
+							<span>Марс</span>
+						</div>
+						<div class="planet" draggable="true" data-planet="jupiter">
+							<div class="planet-icon" style="background: #e0a56c"></div>
+							<span>Юпитер</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="solar-system">
+					<div class="sun"></div>
+					<div class="orbit-slots">
+						<div class="orbit-slot" data-slot="1">
+							<div class="orbit-number">1</div>
+							<div class="slot-content">
+								<div class="empty-slot">Перетащи сюда Меркурий</div>
+							</div>
+						</div>
+						<div class="orbit-slot" data-slot="2">
+							<div class="orbit-number">2</div>
+							<div class="slot-content">
+								<div class="empty-slot">Перетащи сюда Венеру</div>
+							</div>
+						</div>
+						<div class="orbit-slot" data-slot="3">
+							<div class="orbit-number">3</div>
+							<div class="slot-content">
+								<div class="empty-slot">Перетащи сюда Землю</div>
+							</div>
+						</div>
+						<div class="orbit-slot" data-slot="4">
+							<div class="orbit-number">4</div>
+							<div class="slot-content">
+								<div class="empty-slot">Перетащи сюда Марс</div>
+							</div>
+						</div>
+						<div class="orbit-slot" data-slot="5">
+							<div class="orbit-number">5</div>
+							<div class="slot-content">
+								<div class="empty-slot">Перетащи сюда Юпитер</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="info-panel">
+					<h2>Инструкция</h2>
+					<div class="instruction">
+						<p>1. Перетащи планету на её орбиту (правильный номер)</p>
+						<p>2. Если орбита правильная - планета останется</p>
+						<p>3. Если неправильная - вернётся обратно</p>
+					</div>
+					<div class="result-message" id="resultMessage">
+						Начни с Меркурия на первую орбиту!
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			const planetRules = {
+				mercury: 1,
+				venus: 2,
+				earth: 3,
+				mars: 4,
+				jupiter: 5,
+			}
+
+			let draggedPlanet = null
+			let correctPlanets = 0
+			const totalPlanets = 5
+
+			document.addEventListener('DOMContentLoaded', function () {
+				setupDragAndDrop()
+			})
+
+			function setupDragAndDrop() {
+				const planets = document.querySelectorAll('.planet')
+				planets.forEach(planet => {
+					planet.addEventListener('dragstart', handleDragStart)
+					planet.addEventListener('dragend', handleDragEnd)
+				})
+
+				const slots = document.querySelectorAll('.orbit-slot')
+				slots.forEach(slot => {
+					slot.addEventListener('dragover', handleDragOver)
+					slot.addEventListener('drop', handleDrop)
+				})
+			}
+
+			function handleDragStart(event) {
+				draggedPlanet = event.target
+				event.target.classList.add('dragging')
+
+				showMessage(
+					'Перетащи ' +
+						event.target.querySelector('span').textContent +
+						' на правильную орбиту!'
+				)
+			}
+
+			function handleDragEnd(event) {
+				event.target.classList.remove('dragging')
+			}
+
+			function handleDragOver(event) {
+				event.preventDefault()
+			}
+
+			function handleDrop(event) {
+				event.preventDefault()
+
+				if (!draggedPlanet) return
+
+				const slot = event.target.closest('.orbit-slot')
+				if (!slot) return
+
+				const slotNumber = parseInt(slot.getAttribute('data-slot'))
+				const planetId = draggedPlanet.getAttribute('data-planet')
+				const correctSlot = planetRules[planetId]
+
+				if (slotNumber === correctSlot) {
+					placePlanetInSlot(draggedPlanet, slot)
+					showMessage(
+						'✅ Отлично! ' + getPlanetName(planetId) + ' на правильной орбите!',
+						'success'
+					)
+
+					draggedPlanet.classList.add('correct')
+					draggedPlanet.style.opacity = '0.4'
+					draggedPlanet.draggable = false
+
+					correctPlanets++
+					checkGameCompletion()
+				} else {
+					showMessage(
+						'❌ Неправильная орбита для ' + getPlanetName(planetId) + '!',
+						'error'
+					)
+				}
+
+				draggedPlanet = null
+			}
+
+			function placePlanetInSlot(planet, slot) {
+				const slotContent = slot.querySelector('.slot-content')
+				const planetId = planet.getAttribute('data-planet')
+
+				const planetInSlot = document.createElement('div')
+				planetInSlot.className = 'planet-in-slot'
+				planetInSlot.innerHTML = `
+                <div class="planet-icon" style="${
+									planet.querySelector('.planet-icon').style.cssText
+								}"></div>
+                <span>${getPlanetName(planetId)}</span>
+            `
+
+				slotContent.innerHTML = ''
+				slotContent.appendChild(planetInSlot)
+				slot.classList.add('occupied')
+			}
+
+			function getPlanetName(planetId) {
+				const names = {
+					mercury: 'Меркурий',
+					venus: 'Венера',
+					earth: 'Земля',
+					mars: 'Марс',
+					jupiter: 'Юпитер',
+				}
+				return names[planetId]
+			}
+
+			function showMessage(text, type) {
+				const messageElement = document.getElementById('resultMessage')
+				messageElement.textContent = text
+				messageElement.className = 'result-message ' + (type || '')
+			}
+
+			function checkGameCompletion() {
+				if (correctPlanets === totalPlanets) {
+					showMessage(
+						'🎉 УРА! Ты собрал всю Солнечную систему! Молодец! 🚀',
+						'success'
+					)
+					document.querySelector('.sun').style.background = '#ffff00'
+					document.querySelector('.sun').style.boxShadow = '0 0 40px #ffff00'
+				}
+			}
+		</script>
+	</body>
+</html>

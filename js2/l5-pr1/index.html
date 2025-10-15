@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Мой дневной планировщик</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			body {
+				font-family: 'Arial', sans-serif;
+				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				color: #333;
+				min-height: 100vh;
+				padding: 20px;
+			}
+
+			.container {
+				max-width: 800px;
+				margin: 0 auto;
+				background: white;
+				border-radius: 15px;
+				padding: 20px;
+				box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+			}
+
+			header {
+				text-align: center;
+				margin-bottom: 30px;
+			}
+
+			h1 {
+				color: #4a5568;
+				margin-bottom: 10px;
+			}
+
+			.add-event {
+				background: #f7fafc;
+				padding: 20px;
+				border-radius: 10px;
+				margin-bottom: 20px;
+				border: 2px dashed #cbd5e0;
+			}
+
+			.input-group {
+				display: flex;
+				gap: 10px;
+				margin-bottom: 10px;
+				flex-wrap: wrap;
+			}
+
+			input,
+			select,
+			button {
+				padding: 10px;
+				border: 2px solid #e2e8f0;
+				border-radius: 8px;
+				font-size: 16px;
+			}
+
+			input {
+				flex: 1;
+				min-width: 200px;
+			}
+
+			select {
+				min-width: 120px;
+			}
+
+			button {
+				background: #4299e1;
+				color: white;
+				border: none;
+				cursor: pointer;
+				transition: background 0.3s;
+			}
+
+			button:hover {
+				background: #3182ce;
+			}
+
+			.color-options {
+				display: flex;
+				gap: 5px;
+				margin-top: 10px;
+			}
+
+			.color-option {
+				width: 30px;
+				height: 30px;
+				border-radius: 50%;
+				cursor: pointer;
+				border: 3px solid transparent;
+			}
+
+			.color-option.selected {
+				border-color: #4a5568;
+			}
+
+			.schedule {
+				display: grid;
+				gap: 10px;
+			}
+
+			.time-slot {
+				display: flex;
+				align-items: center;
+				gap: 15px;
+				padding: 15px;
+				background: #f7fafc;
+				border-radius: 10px;
+				border-left: 5px solid #4299e1;
+			}
+
+			.time {
+				font-weight: bold;
+				min-width: 80px;
+				color: #4a5568;
+			}
+
+			.event {
+				flex: 1;
+				padding: 10px;
+				border-radius: 5px;
+				color: white;
+			}
+
+			.delete-btn {
+				background: #e53e3e;
+				color: white;
+				border: none;
+				padding: 5px 10px;
+				border-radius: 5px;
+				cursor: pointer;
+			}
+
+			.delete-btn:hover {
+				background: #c53030;
+			}
+
+			.empty-message {
+				text-align: center;
+				color: #a0aec0;
+				padding: 40px;
+				font-style: italic;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<header>
+				<h1>📅 Мой дневной планировщик</h1>
+				<p>Спланируй свой день весело и красочно!</p>
+			</header>
+
+			<div class="add-event">
+				<div class="input-group">
+					<input
+						type="text"
+						id="eventInput"
+						placeholder="Что будем делать?"
+						maxlength="50"
+					/>
+					<select id="timeSelect">
+						<option value="08:00">08:00 - Утро</option>
+						<option value="09:00">09:00</option>
+						<option value="10:00">10:00</option>
+						<option value="11:00">11:00</option>
+						<option value="12:00">12:00 - День</option>
+						<option value="13:00">13:00</option>
+						<option value="14:00">14:00</option>
+						<option value="15:00">15:00</option>
+						<option value="16:00">16:00</option>
+						<option value="17:00">17:00 - Вечер</option>
+						<option value="18:00">18:00</option>
+						<option value="19:00">19:00</option>
+						<option value="20:00">20:00</option>
+					</select>
+					<button onclick="addEvent()">Добавить</button>
+				</div>
+
+				<div class="color-options">
+					<div
+						class="color-option selected"
+						style="background: #4299e1"
+						data-color="#4299e1"
+					></div>
+					<div
+						class="color-option"
+						style="background: #48bb78"
+						data-color="#48bb78"
+					></div>
+					<div
+						class="color-option"
+						style="background: #ed8936"
+						data-color="#ed8936"
+					></div>
+					<div
+						class="color-option"
+						style="background: #9f7aea"
+						data-color="#9f7aea"
+					></div>
+					<div
+						class="color-option"
+						style="background: #f56565"
+						data-color="#f56565"
+					></div>
+				</div>
+			</div>
+
+			<div class="schedule" id="schedule">
+				<div class="empty-message">
+					Пока нет событий. Добавь первое событие!
+				</div>
+			</div>
+		</div>
+
+		<script>
+			let selectedColor = '#4299e1'
+			let events = []
+
+			document.querySelectorAll('.color-option').forEach(option => {
+				option.addEventListener('click', function () {
+					document.querySelectorAll('.color-option').forEach(opt => {
+						opt.classList.remove('selected')
+					})
+					this.classList.add('selected')
+					selectedColor = this.getAttribute('data-color')
+				})
+			})
+
+			document
+				.getElementById('eventInput')
+				.addEventListener('keypress', function (e) {
+					if (e.key === 'Enter') {
+						addEvent()
+					}
+				})
+
+			function addEvent() {
+				const eventInput = document.getElementById('eventInput')
+				const timeSelect = document.getElementById('timeSelect')
+				const eventText = eventInput.value.trim()
+				const time = timeSelect.value
+
+				if (eventText === '') {
+					alert('Введите описание события!')
+					return
+				}
+
+				const event = {
+					id: Date.now(),
+					text: eventText,
+					time: time,
+					color: selectedColor,
+				}
+
+				events.push(event)
+				renderSchedule()
+
+				eventInput.value = ''
+				eventInput.focus()
+			}
+
+			function deleteEvent(id) {
+				events = events.filter(event => event.id !== id)
+				renderSchedule()
+			}
+
+			function renderSchedule() {
+				const schedule = document.getElementById('schedule')
+
+				if (events.length === 0) {
+					schedule.innerHTML =
+						'<div class="empty-message">Пока нет событий. Добавь первое событие!</div>'
+					return
+				}
+
+				events.sort((a, b) => a.time.localeCompare(b.time))
+
+				schedule.innerHTML = events
+					.map(
+						event => `
+                <div class="time-slot">
+                    <div class="time">${event.time}</div>
+                    <div class="event" style="background: ${event.color}">
+                        ${event.text}
+                    </div>
+                    <button class="delete-btn" onclick="deleteEvent(${event.id})">✕</button>
+                </div>
+            `
+					)
+					.join('')
+			}
+
+			document.getElementById('eventInput').focus()
+		</script>
+	</body>
+</html>

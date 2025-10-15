@@ -1,0 +1,24 @@
+{
+	"brand": "Apple",
+	"model": "iPhone 11 Pro",
+	"isAvailable": true,
+	"display": 5.8,
+	"memories": [64, 256, 512],
+	"features": {
+		"tripleCamera": true,
+		"faceId": true,
+		"touchId": false,
+		"eSIM": true
+	}
+}
+
+{
+  "name": "Luke Skywalker",
+  "height": "172",
+  "mass": "77",
+  "hair_color": "blond",
+  "skin_color": "fair",
+  "eye_color": "blue",
+  "birth_year": "19BBY",
+  "gender": "male"
+}

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>LIGA ROBOTOV</title>
+	</head>
+	<body>
+		<script type="module" src="main.js"></script>
+	</body>
+</html>
+
+<script>
+											export function sayHello() {
+												console.log('Hello LIGA ROBOTOV')
+											}
+											export {}
+
+											import { sayHello } from './message.js'
+											sayHello()
+
+											import 'путь_к_модулю'
+
+											const messageText = 'Hello LIGA ROBOTOV'
+											console.log(messageText)
+
+											import './message.js'
+
+											// экспорт переменной
+											export let welcome = 'Welcome'
+											// экспорт константы
+											export const hello = 'Hello'
+
+											// экспорт функции
+											export function sayHello() {
+												console.log('Hello METANIT.COM')
+											}
+
+											// экспорт класса
+											export class Messenger {
+												send(text) {
+													console.log('Sending message:', text)
+												}
+											}
+
+
+											 import {компонент1, компонент2, ... компонентN} from "путь_к_модулю";
+
+
+											  import * as псевдоним_модуля from "модуль";
+
+
+										    import * as MessageModule from "./message.js";
+
+										MessageModule.sayHello();
+
+										const telegram = new MessageModule.Messenger();
+										telegram.send(MessageModule.welcome);
+
+
+
+									  export default function sayHello() {
+									  console.log("Hello from sayHello function");
+									}
+
+
+								 import sayHello from "./message.js";
+
+								sayHello();
+
+
+
+							export let welcome = "Welcome";
+							export const hello = "Hello";
+
+							export default function sayHello() {
+							  console.log("Hello METANIT.COM");
+							}
+
+							export class Messenger {
+							    send(text){
+							        console.log("Sending message:", text);
+							    }
+							}
+
+
+						let welcome = "Welcome";
+						const hello = "Hello";
+
+						function sayHello() {
+						  console.log("Hello METANIT.COM");
+						}
+
+						class Messenger {
+						    send(text){
+						        console.log("Sending message:", text);
+						    }
+						}
+
+						export {welcome, hello, sayHello as default, Messenger}
+
+
+					import sayHello, {welcome, Messenger} from "./message.js";
+
+					sayHello();
+
+					const telegram = new Messenger();
+					telegram.send(welcome);
+
+
+
+				let welcome = "Welcome";
+				const hello = "Hello";
+
+				function sayHello() {
+				  console.log("Hello METANIT.COM");
+				}
+
+				class Messenger {
+				    send(text){
+				        console.log("Sending message:", text);
+				    }
+				}
+
+				export default {welcome, hello, sayHello, Messenger}
+
+
+			import MessageModule from "./message.js";
+
+			MessageModule.sayHello();
+
+			const telegram = new MessageModule.Messenger();
+			telegram.send(MessageModule.welcome);
+
+
+
+		let welcome = "Welcome";
+		const hello = "Hello";
+
+		function sayHello() {
+		  console.log("Hello METANIT.COM");
+		}
+
+		class Messenger {
+		    send(text){
+		        console.log("Sending message:", text);
+		    }
+		}
+
+		export {welcome as simpleMessage, hello, sayHello as printMessage, Messenger}
+
+
+		 компонент as псевдним
+
+
+
+	 import {simpleMessage as messageText, printMessage as printHello, Messenger} from "./message.js";
+
+	const printMessage = ()=>console.log("Hello from main module");
+
+	printHello();
+	printMessage();
+
+	const telegram = new Messenger();
+	telegram.send(messageText);
+</script>

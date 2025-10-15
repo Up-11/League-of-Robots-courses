@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Изучение - Флэш-карточки</title>
+		<style>
+			* {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			}
+
+			body {
+				background: #1a1a2e;
+				color: #fff;
+				min-height: 100vh;
+				display: flex;
+			}
+
+			.sidebar {
+				width: 250px;
+				background: #16213e;
+				padding: 30px 20px;
+				height: 100vh;
+				position: fixed;
+				border-right: 2px solid #0f3460;
+			}
+
+			.logo {
+				text-align: center;
+				margin-bottom: 40px;
+			}
+
+			.logo h1 {
+				font-size: 1.8em;
+				color: #e94560;
+			}
+
+			.nav-links {
+				list-style: none;
+			}
+
+			.nav-links li {
+				margin-bottom: 15px;
+			}
+
+			.nav-links a {
+				color: #fff;
+				text-decoration: none;
+				padding: 12px 15px;
+				border-radius: 8px;
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				transition: all 0.3s;
+			}
+
+			.nav-links a:hover {
+				background: #0f3460;
+			}
+
+			.nav-links a.active {
+				background: #e94560;
+			}
+
+			.main-content {
+				flex: 1;
+				margin-left: 250px;
+				padding: 40px;
+			}
+
+			.header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 40px;
+			}
+
+			.stats {
+				display: flex;
+				gap: 20px;
+			}
+
+			.stat-card {
+				background: #16213e;
+				padding: 20px;
+				border-radius: 10px;
+				text-align: center;
+				border: 1px solid #0f3460;
+			}
+
+			.stat-number {
+				font-size: 2em;
+				color: #e94560;
+				font-weight: bold;
+			}
+
+			.game-container {
+				max-width: 600px;
+				margin: 0 auto;
+				background: #16213e;
+				border-radius: 15px;
+				padding: 40px;
+				border: 2px solid #0f3460;
+				box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+			}
+
+			.card-display {
+				background: #0f3460;
+				border-radius: 15px;
+				padding: 50px 30px;
+				text-align: center;
+				margin-bottom: 30px;
+				min-height: 200px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border: 2px solid #e94560;
+			}
+
+			.card-word {
+				font-size: 2.5em;
+				font-weight: bold;
+				margin-bottom: 20px;
+			}
+
+			.answer-input {
+				width: 100%;
+				padding: 15px 20px;
+				border: 2px solid #0f3460;
+				border-radius: 10px;
+				background: #1a1a2e;
+				color: #fff;
+				font-size: 1.1em;
+				margin-bottom: 20px;
+			}
+
+			.answer-input:focus {
+				outline: none;
+				border-color: #e94560;
+			}
+
+			.btn {
+				background: #e94560;
+				color: white;
+				border: none;
+				padding: 15px 30px;
+				border-radius: 10px;
+				font-size: 1.1em;
+				font-weight: 600;
+				cursor: pointer;
+				transition: all 0.3s;
+				width: 100%;
+			}
+
+			.btn:hover {
+				background: #ff6b81;
+				transform: translateY(-2px);
+			}
+
+			.btn-secondary {
+				background: #0f3460;
+			}
+
+			.btn-secondary:hover {
+				background: #1a4a7a;
+			}
+
+			.result {
+				text-align: center;
+				padding: 20px;
+				border-radius: 10px;
+				margin-top: 20px;
+				display: none;
+			}
+
+			.result.correct {
+				background: #2ecc71;
+				display: block;
+			}
+
+			.result.incorrect {
+				background: #e74c3c;
+				display: block;
+			}
+
+			.progress-bar {
+				width: 100%;
+				height: 8px;
+				background: #0f3460;
+				border-radius: 4px;
+				margin-bottom: 20px;
+				overflow: hidden;
+			}
+
+			.progress-fill {
+				height: 100%;
+				background: #e94560;
+				transition: width 0.3s;
+			}
+
+			.controls {
+				display: flex;
+				gap: 10px;
+				margin-top: 20px;
+			}
+
+			.controls .btn {
+				flex: 1;
+			}
+
+			.hidden {
+				display: none;
+			}
+
+			.card-translation {
+				font-size: 1.5em;
+				color: #2ecc71;
+				margin-top: 15px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="sidebar">
+			<div class="logo">
+				<h1>🎴 Карточки</h1>
+			</div>
+			<ul class="nav-links">
+				<li><a href="index.html" class="active">🎮 Изучение</a></li>
+				<li><a href="controls.html">📝 Управление</a></li>
+			</ul>
+		</div>
+
+		<div class="main-content">
+			<div class="header">
+				<h1>Режим изучения</h1>
+				<div class="stats">
+					<div class="stat-card">
+						<div class="stat-number" id="totalCards">0</div>
+						<div>Всего карточек</div>
+					</div>
+					<div class="stat-card">
+						<div class="stat-number" id="correctAnswers">0</div>
+						<div>Правильных ответов</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="progress-bar">
+				<div class="progress-fill" id="progressFill" style="width: 0%"></div>
+			</div>
+
+			<div class="game-container">
+				<div id="startScreen">
+					<div class="card-display">
+						<h2>Готовы начать?</h2>
+					</div>
+					<button class="btn" onclick="startGame()">🎯 Начать игру</button>
+				</div>
+
+				<div id="gameScreen" class="hidden">
+					<div class="card-display">
+						<div class="card-word" id="currentWord">Слово</div>
+						<div class="card-translation" id="correctTranslation"></div>
+					</div>
+					<input
+						type="text"
+						class="answer-input"
+						id="answerInput"
+						placeholder="Введите перевод..."
+					/>
+					<button class="btn" onclick="checkAnswer()">✅ Проверить</button>
+					<div class="controls">
+						<button class="btn btn-secondary" onclick="showAnswer()">
+							👀 Показать ответ
+						</button>
+						<button class="btn btn-secondary" onclick="skipCard()">
+							⏭️ Пропустить
+						</button>
+					</div>
+				</div>
+
+				<div id="resultScreen" class="hidden">
+					<div class="card-display">
+						<h2 id="resultMessage">Результат</h2>
+					</div>
+					<button class="btn" onclick="nextCard()">
+						➡️ Следующая карточка
+					</button>
+				</div>
+
+				<div id="endScreen" class="hidden">
+					<div class="card-display">
+						<h2>Игра завершена! 🎉</h2>
+						<p>
+							Вы ответили правильно на <span id="finalScore">0</span> из
+							<span id="totalPlayed">0</span> карточек
+						</p>
+					</div>
+					<button class="btn" onclick="restartGame()">🔄 Начать заново</button>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			const API_URL = 'https://0594c48b9b34d094.mokky.dev/cards'
+			let cards = []
+			let currentCardIndex = 0
+			let correctAnswers = 0
+			let totalPlayed = 0
+			let gameStarted = false
+
+			document.addEventListener('DOMContentLoaded', loadCards)
+
+			async function loadCards() {
+				try {
+					const response = await fetch(API_URL)
+					if (!response.ok) throw new Error('Ошибка загрузки')
+
+					cards = await response.json()
+					document.getElementById('totalCards').textContent = cards.length
+				} catch (error) {
+					console.error('Ошибка загрузки карточек:', error)
+				}
+			}
+
+			function startGame() {
+				if (cards.length === 0) {
+					alert(
+						'Нет карточек для изучения! Добавьте карточки на странице управления.'
+					)
+					return
+				}
+
+				gameStarted = true
+				correctAnswers = 0
+				totalPlayed = 0
+				currentCardIndex = 0
+
+				document.getElementById('correctAnswers').textContent = '0'
+				document.getElementById('startScreen').classList.add('hidden')
+				document.getElementById('gameScreen').classList.remove('hidden')
+
+				shuffleCards()
+				showNextCard()
+			}
+
+			function shuffleCards() {
+				for (let i = cards.length - 1; i > 0; i--) {
+					const j = Math.floor(Math.random() * (i + 1))
+					;[cards[i], cards[j]] = [cards[j], cards[i]]
+				}
+			}
+
+			function showNextCard() {
+				if (currentCardIndex >= cards.length) {
+					endGame()
+					return
+				}
+
+				const currentCard = cards[currentCardIndex]
+				document.getElementById('currentWord').textContent = currentCard.word
+				document.getElementById('correctTranslation').textContent = ''
+				document.getElementById('correctTranslation').style.display = 'none'
+				document.getElementById('answerInput').value = ''
+				document.getElementById('answerInput').focus()
+
+				const progress = (currentCardIndex / cards.length) * 100
+				document.getElementById('progressFill').style.width = progress + '%'
+			}
+
+			function checkAnswer() {
+				const userAnswer = document
+					.getElementById('answerInput')
+					.value.trim()
+					.toLowerCase()
+				const correctAnswer = cards[currentCardIndex].translation.toLowerCase()
+
+				totalPlayed++
+
+				if (userAnswer === correctAnswer) {
+					correctAnswers++
+					document.getElementById('correctAnswers').textContent = correctAnswers
+					showResult('Правильно! 🎉', 'correct')
+				} else {
+					showResult(
+						`Неправильно. Правильный ответ: ${cards[currentCardIndex].translation}`,
+						'incorrect'
+					)
+				}
+			}
+
+			function showAnswer() {
+				document.getElementById('correctTranslation').textContent =
+					cards[currentCardIndex].translation
+				document.getElementById('correctTranslation').style.display = 'block'
+			}
+
+			function skipCard() {
+				currentCardIndex++
+				showNextCard()
+			}
+
+			function showResult(message, type) {
+				document.getElementById('gameScreen').classList.add('hidden')
+				document.getElementById('resultScreen').classList.remove('hidden')
+				document.getElementById('resultMessage').textContent = message
+				document.getElementById('resultMessage').className = type
+			}
+
+			function nextCard() {
+				currentCardIndex++
+				document.getElementById('resultScreen').classList.add('hidden')
+				document.getElementById('gameScreen').classList.remove('hidden')
+				showNextCard()
+			}
+
+			function endGame() {
+				document.getElementById('gameScreen').classList.add('hidden')
+				document.getElementById('endScreen').classList.remove('hidden')
+				document.getElementById('finalScore').textContent = correctAnswers
+				document.getElementById('totalPlayed').textContent = totalPlayed
+				document.getElementById('progressFill').style.width = '100%'
+			}
+
+			function restartGame() {
+				document.getElementById('endScreen').classList.add('hidden')
+				document.getElementById('startScreen').classList.remove('hidden')
+				gameStarted = false
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Переключатель тем</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+		/>
+		<style>
+			:root {
+				--primary-color: #4a86e8;
+				--background-color: #ffffff;
+				--text-color: #333333;
+			}
+
+			[data-theme='dark'] {
+				--primary-color: #5d9df5;
+				--background-color: #1a1a1a;
+				--text-color: #ffffff;
+			}
+
+			[data-theme='green'] {
+				--primary-color: #4caf50;
+				--background-color: #f1f8e9;
+				--text-color: #2e7d32;
+			}
+
+			[data-theme='red'] {
+				--primary-color: #f44336;
+				--background-color: #ffebee;
+				--text-color: #c62828;
+			}
+
+			[data-theme='purple'] {
+				--primary-color: #9c27b0;
+				--background-color: #f3e5f5;
+				--text-color: #6a1b9a;
+			}
+
+			[data-theme='gold'] {
+				--primary-color: #ffc107;
+				--background-color: #fffde7;
+				--text-color: #ff8f00;
+			}
+
+			[data-theme='ocean'] {
+				--primary-color: #00bcd4;
+				--background-color: #e0f7fa;
+				--text-color: #00838f;
+			}
+
+			body {
+				background-color: var(--background-color);
+				color: var(--text-color);
+				transition: all 0.3s ease;
+				font-family: Arial, sans-serif;
+				margin: 0;
+				padding: 20px;
+			}
+
+			.container {
+				max-width: 800px;
+				margin: 0 auto;
+			}
+
+			.theme-btn {
+				border: none;
+				padding: 10px 15px;
+				margin: 5px;
+				border-radius: 5px;
+				color: white;
+				cursor: pointer;
+				transition: all 0.3s ease;
+			}
+
+			.theme-btn.active {
+				transform: scale(1.1);
+				box-shadow: 0 0 10px currentColor;
+			}
+
+			.theme-info {
+				margin-top: 20px;
+				padding: 15px;
+				background-color: rgba(0, 0, 0, 0.1);
+				border-radius: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Переключатель тем</h1>
+			<div id="theme-buttons"></div>
+			<div class="theme-info">
+				<p>Текущая тема: <span id="theme-name">-</span></p>
+				<p>ID темы: <span id="current-theme-id">-</span></p>
+				<p>Всего тем: <span id="total-themes">-</span></p>
+			</div>
+		</div>
+
+		<script type="module" src="storege.js"></script>
+		<script type="module" src="themeManager.js"></script>
+		<script type="module" src="themes.js"></script>
+		<script type="module" src="uiRenderer.js"></script>
+		<script type="module" src="app.js"></script>
+	</body>
+</html>
